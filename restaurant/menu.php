@@ -2,7 +2,8 @@
 
 $pageTitle = 'Menu';
 $headerImg = 'images/pexels-fwstudio-172289.jpg';
-include 'inc/header.inc.php'; 
+$pageKey = 'menu';
+include 'inc/header.inc.php';
 
 ?>
 <h1>Our menu</h1>
