@@ -29,12 +29,12 @@ $numSelected = min(5, count($cleanedWaitingList));
 
 $selectedParticipants = [];
 $unSelectedParticipants = [];
-$i = 0;
-for ( ; $i < $numSelected; ++$i) {
-	$selectedParticipants[] = $cleanedWaitingList[$i];
+$p = 0;
+for ( ; $p < $numSelected; ++$p) {
+	$selectedParticipants[] = $cleanedWaitingList[$p];
 }
-for ( ; $i < count($cleanedWaitingList); ++$i)	{
-	$unSelectedParticipants[] = $cleanedWaitingList[$i];
+for ( ; $p < count($cleanedWaitingList); ++$p)	{
+	$unSelectedParticipants[] = $cleanedWaitingList[$p];
 }
 
 ?>
