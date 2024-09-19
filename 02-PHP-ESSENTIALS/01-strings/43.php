@@ -27,18 +27,13 @@ $individualName = 'Alex Reed';
 $s = true;
 
 
-$waitingList = ['Aaron Stone', 'Casey Smith', 'Ian Hope', 'Uma River'];
-$priorityParticipants = [];
+///
+$waitingList = [];
 
+$priorityParticipants = ['Ava Stone', 'Dylan Marsh', 'Emma Lake', 'Grace Hill', 'Henry Cole', 'Kyle Brook', 'Lily Snow', 'Mason Cliff', 'Nora Field', 'Sophia Forest', 'Theo River'];
 
 $individualName = 'Theo River';
-
-//$priorityParticipants[] = $individualName;
-
-
-$waitingList = ['Elliot Ford', 'Ian Cloud', 'Jenny Light', 'Kyle Rain', 'Lara Snow', 'Penny River', 'Zara Cliff'];
-
-$priorityParticipants = ['Gina Bloom', 'Henry Cole', 'Jenny Light', 'Kyle Rain', 'Lara Snow', 'Nina Spark'];
+///
 
 $br = isset($s) ? "<br>" : "";
 $finalAttendees = [];
@@ -61,7 +56,7 @@ for ( ; count($waitingList) > $waitingI && count($finalAttendees) < 5; ++$waitin
 }
 sort($finalAttendees);
 
-// $backupCandidates are up to 3 from remaining $priorityParticipants, not in the waitinglist
+// $backupCandidates are up to 3 from remaining $priorityParticipants, not in the $finalAttendees
 $backupI = 0;
 for ( ; $backupI < 3 && $priorityI < count($priorityParticipants); ++$priorityI) {
 	if (in_array($priorityParticipants[$priorityI], $finalAttendees))
@@ -70,22 +65,20 @@ for ( ; $backupI < 3 && $priorityI < count($priorityParticipants); ++$priorityI)
 	++$backupI;
 }
 
-// If need be, top up $backupCandidates to 3 from remaining waitinglist
+// If need be, top up $backupCandidates to 3 from remaining $finalAttendees
 for ( ; $backupI < 3 && $waitingI < count($waitingList); ++$waitingI) {
-	if (in_array($waitingList[$waitingI], $backupCandidates))
+	if (in_array($waitingList[$waitingI], $finalAttendees))
 		continue;
 	$backupCandidates[] = $waitingList[$waitingI];
 	++$backupI;
 }
-//sort($backupCandidates);
-
 
 // Which list is $individualName in ?
-if 	(in_array($individualName,$finalAttendees))
+if 	(array_search($individualName,$finalAttendees))
 	$individualStatus = 'Final Attendee';
-elseif(in_array($individualName,$backupCandidates))
+elseif(array_search($individualName,$backupCandidates))
 	$individualStatus = 'Backup Candidate';
-elseif(in_array($individualName,$waitingList))	{
+elseif(array_search($individualName,$waitingList))	{
 	$pos = array_search($individualName,$waitingList) - $waitingI + 1;
 	$individualStatus = "Waiting, position $pos";
 }
