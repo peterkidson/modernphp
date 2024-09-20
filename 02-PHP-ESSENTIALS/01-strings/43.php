@@ -28,62 +28,47 @@ $s = true;
 
 
 ///
-$waitingList = [];
+$waitingList = ['Alex Reed', 'Blake Jordan', 'Casey Smith', 'Drew Alex', 'Finn Harlow', 'Jordan Kay'];	// 9
+$priorityParticipants = ['Alex Reed', 'Blake Jordan', 'Casey Smith', 'Drew Alex'];
 
-$priorityParticipants = ['Ava Stone', 'Dylan Marsh', 'Emma Lake', 'Grace Hill', 'Henry Cole', 'Kyle Brook', 'Lily Snow', 'Mason Cliff', 'Nora Field', 'Sophia Forest', 'Theo River'];
 
-$individualName = 'Theo River';
-///
+
+$waitingList = ['Ava Stone', 'Dylan Marsh', 'Emma Lake', 'Grace Hill', 'Henry Cole', 'Kyle Brook', 'Lily Snow', 'Mason Cliff', 'Nora Field', 'Sophia Forest'];
+
+$priorityParticipants = [];
+
+$individualName = 'Nora Field';
+
+
 
 $br = isset($s) ? "<br>" : "";
 $finalAttendees = [];
 $backupCandidates = [];
 
-// Add up to first 5 priorityParticipants to $finalAttendees
-$priorityI = 0;
-for ( ; $priorityI < 5; ++$priorityI) {
-	if ($priorityI > count($priorityParticipants)-1)
-		break;
-	$finalAttendees[] = $priorityParticipants[$priorityI];
-}
+$waitingList2 = array_merge($priorityParticipants,$waitingList);
+$waitingList3 = array_unique($waitingList2);
+$waitingList = [];
+foreach($waitingList3 as $waiting)
+	$waitingList[] = $waiting;
 
-// If need be, top up $finalAttendees to 5 from waitingList not already there due to being in the priorityList
+// Add up to first 5 now waiting to $finalAttendees
 $waitingI = 0;
-for ( ; count($waitingList) > $waitingI && count($finalAttendees) < 5; ++$waitingI) {
-	if (in_array($waitingList[$waitingI], $finalAttendees))
-		continue; // Is next waitinglist already included (from $priorityParticipants)?
+for ( ; $waitingI < 5; ++$waitingI) {
+	if ($waitingI > count($waitingList)-1)
+		break;
 	$finalAttendees[] = $waitingList[$waitingI];
 }
 sort($finalAttendees);
 
-// $backupCandidates are up to 3 from remaining $priorityParticipants, not in the $finalAttendees
+// Add up to 3 now waiting to $backupCandidates
 $backupI = 0;
-for ( ; $backupI < 3 && $priorityI < count($priorityParticipants); ++$priorityI) {
-	if (in_array($priorityParticipants[$priorityI], $finalAttendees))
-		continue;
-	$backupCandidates[] = $priorityParticipants[$priorityI];
-	++$backupI;
-}
-
-// If need be, top up $backupCandidates to 3 from remaining $finalAttendees
 for ( ; $backupI < 3 && $waitingI < count($waitingList); ++$waitingI) {
 	if (in_array($waitingList[$waitingI], $finalAttendees))
 		continue;
 	$backupCandidates[] = $waitingList[$waitingI];
 	++$backupI;
 }
-
-// Which list is $individualName in ?
-if 	(array_search($individualName,$finalAttendees))
-	$individualStatus = 'Final Attendee';
-elseif(array_search($individualName,$backupCandidates))
-	$individualStatus = 'Backup Candidate';
-elseif(array_search($individualName,$waitingList))	{
-	$pos = array_search($individualName,$waitingList) - $waitingI + 1;
-	$individualStatus = "Waiting, position $pos";
-}
-else
-	$individualStatus = 'Not found';
+sort($backupCandidates);
 
 if ( count($backupCandidates) > 0) {
 	foreach ($backupCandidates as $backupCandidate) {
@@ -91,3 +76,17 @@ if ( count($backupCandidates) > 0) {
 	}
 }
 
+// Which list is $individualName in ?
+if 	(array_search($individualName,$finalAttendees) !== false)
+	$individualStatus = 'Final Attendee';
+elseif(array_search($individualName,$backupCandidates) !== false)
+	$individualStatus = 'Backup Candidate';
+elseif(($key = array_search($individualName,$waitingList)) !== false)	{
+	$pos = array_search($key, array_keys($waitingList)) - $waitingI + 1;
+	$individualStatus = "Waiting, position $pos";
+}
+else
+	$individualStatus = 'Not found';
+
+
+echo $individualStatus;
