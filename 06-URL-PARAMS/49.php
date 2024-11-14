@@ -10,6 +10,10 @@
 	<pre>
 		<?php
 			var_dump($_GET);
+
+			function x($xx) {
+				return $xx;
+			}
 		?>
 	</pre>
 
