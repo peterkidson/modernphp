@@ -90,4 +90,4 @@ else {
 	$individualStatus = 'Not found';
 }
 
-echo $individualStatus;
+//echo $individualStatus;
