@@ -9,12 +9,7 @@
 <body>
 	<pre>
 		<?php
-			$cats = ['one', 'two', 'three', 'four', 'five', 'six', 'seven'];
-			var_dump(in_array('one', $cats));
-			var_dump(in_array('one1', $cats));
-
-
-//			var_dump($_GET);
+			var_dump($_GET);
 		?>
 	</pre>
 

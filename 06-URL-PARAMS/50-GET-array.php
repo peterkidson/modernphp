@@ -11,6 +11,8 @@
 		<?php
 			var_dump($_GET);
 
+
+			$x = null;
 			function x($xx) {
 				return $xx;
 			}
@@ -21,9 +23,9 @@
 	<h3><?= $_GET['book'] ?></h3>
 <?php endif;?>
 
-<a href="49.php?book=Rebel Code">Rebel Code</a>
-<a href="49.php?<?php echo http_build_query(['book' => 'Beauty & the Beast']); ?>">Beauty & the Beast</a>
-<a href="49.php?<?= http_build_query(['book' => 'Beauty & the Beast']); ?>">Beauty & the Beast</a>
+<!--<a href="50-GET-array.php?book=Rebel Code">Rebel Code</a>-->
+<!--<a href="50-GET-array.php?--><?php //echo http_build_query(['book' => 'Beauty & the Beast']); ?><!--">Beauty & the Beast</a>-->
+<!--<a href="50-GET-array.php?--><?php //= http_build_query(['book' => 'Beauty & the Beast']); ?><!--">Beauty & the Beast</a>-->
 
 </body>
 </html>
