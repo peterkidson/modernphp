@@ -10,6 +10,7 @@ $br = isset($s) ? "<br>" : "";
 $totalSalaries = 0;
 foreach($companySalaries as $salary)
 	$totalSalaries += $salary;
+$t = array_sum($companySalaries);
 
 $averageSalary = $totalSalaries / count($companySalaries);
 
