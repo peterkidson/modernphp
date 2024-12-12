@@ -12,20 +12,19 @@
 			var_dump($_GET);
 
 
-			$x = null;
-			function x($xx) {
-				return $xx;
-			}
 		?>
 	</pre>
+
 
 <?php if (!empty($_GET['book'])) : ?>
 	<h3><?= $_GET['book'] ?></h3>
 <?php endif;?>
 
-<!--<a href="50-GET-array.php?book=Rebel Code">Rebel Code</a>-->
-<!--<a href="50-GET-array.php?--><?php //echo http_build_query(['book' => 'Beauty & the Beast']); ?><!--">Beauty & the Beast</a>-->
-<!--<a href="50-GET-array.php?--><?php //= http_build_query(['book' => 'Beauty & the Beast']); ?><!--">Beauty & the Beast</a>-->
+<a href="51-url-params.php?param1=hello world">over here</a>
+<a href="51-url-params.php?location=New York&amenity=Bed & Breakfast&deal=Special & Offers">no no no</a>
+<a href="51-url-params.php?<?php echo http_build_query(['param1' => 'hello & world','param2' => 'goodbye cruel world']);?>">over & here</a>
+
+
 
 </body>
 </html>

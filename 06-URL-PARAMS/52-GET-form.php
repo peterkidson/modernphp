@@ -18,7 +18,8 @@
 <?php endif;?>
 
 <form action="52-GET-form.php"	 method="GET">
-	<input type="text" name="book">
+<!--	<input type="text" name="book" value="hello world"/>-->
+	<input type="text" name="book" value="<?php if (!empty($_GET['book'])) echo $_GET['book']; ?>"/>
 	<input type="submit" value="click me">
 </form>
 
