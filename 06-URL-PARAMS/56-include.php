@@ -38,13 +38,13 @@
 </form>
 
 <?php
-if (!empty($_GET['page'])) {
-	$page = $_GET['page'];
-	if (!empty($pages[$page])) {
-		$htmlpage = "pages/{$_GET['page']}.html";
-		echo file_get_contents($htmlpage);
+	if (!empty($_GET['page'])) {
+		$page = $_GET['page'];
+		if (isset($pages[$page])) {
+			$htmlpage = "pages/$page.html";
+			echo file_get_contents($htmlpage);
+		}
 	}
-}
 ?>
 
 </body>
