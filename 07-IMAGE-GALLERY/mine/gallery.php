@@ -2,7 +2,7 @@
 include './inc/functions.inc.php';
 include './inc/images.inc.php';
 
-// Part 1 (Display the Images in a Gallery View)
+// Part 2 (Design the Gallery Layout)
 
 ?>
 <?php include './views/header.php'; ?>
