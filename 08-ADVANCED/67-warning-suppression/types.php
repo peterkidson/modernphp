@@ -7,17 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-<pre>
 
-	<?php
-		var_dump($_GET);
-		$p = $_GET['name'] ?? '';
-		if (is_array($p)) $pv = $p[0];
-		else              $pv = $p;
-		echo $pv;
-	?>
+<pre><?php
+	if (isset($_GET['name'])) {
+		$name = @(string) $_GET['name'];
+		var_dump($name);
+	}
+?></pre>
 
-	<a href="types.php?<?php echo http_build_query(['name' => ['qwerty', 'xxx']]); ?>">simple</a>
-</pre>
+<a href="types.php?<?php echo http_build_query(['name' => [123,'hello']]); ?>">simple</a>
 </body>
 </html>
