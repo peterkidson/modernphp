@@ -10,8 +10,12 @@
 
 <pre><?php
 
-	$text = file_get_contents(__DIR__ . '/inc/functions.inc.php');
-	echo $text;
+	readfile(__DIR__ . '/inc/functions.inc.php');
+//	$text = file_get_contents(__DIR__ . '/inc/functions.inc.php');
+//	echo "contents " . $text . "<br>";
+//	echo "nothing" . "<br>";
+//	echo "dir " . __DIR__ . "<br>";
+//	echo "file " . __FILE__ . "<br>"
 
 	?></pre>
 
