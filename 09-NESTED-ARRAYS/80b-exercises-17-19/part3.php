@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="../../inc/simple.css" />
+	<link rel="stylesheet" type="text/css" href="../../10-DATA-BROWSER/part-01/inc/simple.css" />
 	<title>Document</title>
 </head>
 <body>
