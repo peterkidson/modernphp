@@ -4,7 +4,7 @@ require_once __DIR__ . '/inc/functions.inc.php';
 
 $cityGET = $_GET['city'] ?? null;
 
-$cityBz2Filename = $data = null;
+$cityBz2Filename = $cityData = null;
 if (!empty($cityGET)) {
 	$cities = json_decode(file_get_contents(__DIR__ . '/../data/index.json'), true);
 	foreach ($cities as $city) {
@@ -16,10 +16,10 @@ if (!empty($cityGET)) {
 }
 if (!empty($cityBz2Filename)) {
 	$fp = 'compress.bzip2://' . __DIR__ . '/../data/' . $cityBz2Filename;
-	$cityData = file_get_contents($fp, true);
+	$cityData = json_decode(file_get_contents($fp), true)['results'];
 }
 
-echo "..";
+echo "";
 ?>
 
 
