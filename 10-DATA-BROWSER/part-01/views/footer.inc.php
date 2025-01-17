@@ -1,3 +1,4 @@
-        </main>
+      	<footer><hr></footer>
+		</main>
     </body>
 </html>
