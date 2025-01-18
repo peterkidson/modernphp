@@ -15,20 +15,24 @@ if (!empty($cityGET)) {
 	}
 }
 
-$pm25stats = [];
+$stats = [];
 if (!empty($cityBz2Filename)) {
 	$fp = 'compress.bzip2://' . __DIR__ . '/../data/' . $cityBz2Filename;
 	$cityResults = json_decode(file_get_contents($fp), true)['results'];
 
 	foreach ($cityResults as $result) {
-		if ($result['parameter'] !== 'pm25') continue;
-		$month = substr($result['date']['local'], 0, 7);
-		if (!isset($pm25stats[$month])) {
-			$pm25stats[$month] = [];
-		}
-		$pm25stats[$month][] = $result['value'];
+		if (	$result['parameter']	!== 'pm25'
+			||	$result['value'] < 0				)  continue;
 
-		echo "";
+		$month = substr($result['date']['local'], 0, 7);
+
+		if (!isset($stats[$month])) {
+			$stats[$month] = [ 'pm25' => [] ];
+		}
+
+		$stats[$month]['pm25'][] = $result['value'];
+
+//		echo "";
 	}
 }
 
@@ -37,25 +41,6 @@ echo "";
 
 
 <?php require_once __DIR__ . '/views/header.inc.php'; ?>
-
-<?php if (empty($cityBz2Filename)): ?>
-	<p>City <?= $cityGET ?> could not be loaded</p>
-<?php else: ?>
-	<?php if (!empty($pm25stats)): ?>
-		<table>
-			<tr>
-				<th>Month</th>
-				<th>Average</th>
-			</tr>
-			<?php foreach ($pm25stats as $month => $measurements): ?>
-				<tr>
-					<td><?= e($month) ?></td>
-					<td><?= e(array_sum($measurements) / count($measurements)) ?></td>
-				</tr>
-				<?php endforeach; ?>
-		</table>
-	<?php endif; ?>
-<?php endif; ?>
 
 
 <ul>
@@ -69,5 +54,27 @@ echo "";
 		</li>
 	<?php endforeach; ?>
 </ul>
+
+
+<?php if (empty($cityBz2Filename)): ?>
+	<p>City <?= $cityGET ?> could not be loaded</p>
+<?php else: ?>
+	<?php if (!empty($stats)): ?>
+		<table>
+			<tr>
+				<th>Month</th>
+				<th>Average</th>
+			</tr>
+			<?php foreach ($stats as $month => $measurements): ?>
+				<tr>
+					<td><?= e($month) ?></td>
+					<td><?= e(array_sum($measurements['pm25']) / count($measurements['pm25'])) ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</table>
+	<?php endif; ?>
+<?php endif; ?>
+
+
 
 <?php require_once __DIR__ . '/views/footer.inc.php'; ?>
