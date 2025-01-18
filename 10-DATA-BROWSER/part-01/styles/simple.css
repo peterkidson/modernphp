@@ -557,6 +557,20 @@ figcaption {
   color: var(--text-light);
   margin-bottom: 1rem;
 }
+fig2 {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.centre {
+  text-align: center;
+}
+
+centretag {
+  text-align: center;
+}
 
 blockquote {
   margin-inline-start: 2rem;

@@ -4,33 +4,44 @@ require_once __DIR__ . '/inc/functions.inc.php';
 
 $cityGET = $_GET['city'] ?? null;
 
-$cityBz2Filename = null;
+$filename = $cityInfo = null;
 if (!empty($cityGET)) {
 	$cities = json_decode(file_get_contents(__DIR__ . '/../data/index.json'), true);
-	foreach ($cities as $city) {
-		if ($city['city'] == $cityGET) {
-			$cityBz2Filename = $city['filename'];
+	foreach ($cities as $ccity) {
+		if ($ccity['city'] == $cityGET) {
+			$filename = $ccity['filename'];
+			$cityInfo = $ccity;
 			break;
 		}
 	}
 }
 
-$stats = [];
-if (!empty($cityBz2Filename)) {
-	$fp = 'compress.bzip2://' . __DIR__ . '/../data/' . $cityBz2Filename;
-	$cityResults = json_decode(file_get_contents($fp), true)['results'];
+if (!empty($filename)) {
+	$fp = 'compress.bzip2://' . __DIR__ . '/../data/' . $filename;
+	$results = json_decode(file_get_contents($fp), true)['results'];
 
-	foreach ($cityResults as $result) {
-		if (	!in_array($result['parameter'], ['pm25','pm10'])
-			||	$result['value'] < 0				)  continue;
+	$units	= ['pm25' => null, 'pm10' => null];
+	foreach ($results as $result) {
+		if (isset($units['pm25']) && isset($units['pm10'])) break;
+		switch ($result['parameter']) {
+			case 'pm25': $units['pm25'] = $result['unit']; break;
+			case 'pm10': $units['pm10'] = $result['unit']; break;
+		}
+	}
 
-		$month = substr($result['date']['local'], 0, 7);
+	$stats 	= [];
+
+	foreach ($results as $cityResult) {
+		if (	!in_array($cityResult['parameter'], ['pm25','pm10'])
+			||	$cityResult['value'] < 0										)  continue;
+
+		$month = substr($cityResult['date']['local'], 0, 7);
 
 		if (!isset($stats[$month])) {
 			$stats[$month] = [ 'pm25' => [], 'pm10' => [] ];
 		}
 
-		$stats[$month][$result['parameter']][] = $result['value'];
+		$stats[$month][$cityResult['parameter']][] = $cityResult['value'];
 
 //		echo "";
 	}
@@ -40,31 +51,35 @@ echo "";
 ?>
 
 
+
 <?php require_once __DIR__ . '/views/header.inc.php'; ?>
 
 
 <ul>
-	<?php foreach ($cities as $city): ?>
+	<?php foreach ($cities as $lcity): ?>
 		<li>
-			<a href="city.php?<?= http_build_query(['city' => $city['city']]) ?>">
-				<?php echo e($city['city']) ?>,
-				<?php echo e($city['country']) ?>,
-				<?php echo e($city['flag']) ?>
+			<a href="city.php?<?= http_build_query(['city' => $lcity['city']]) ?>">
+				<?php echo e($lcity['city']) ?>,
+				<?php echo e($lcity['country']) ?>,
+				<?php echo e($lcity['flag']) ?>
 			</a>
 		</li>
 	<?php endforeach; ?>
 </ul>
 
 
-<?php if (empty($cityBz2Filename)): ?>
+<?php if (empty($filename)): ?>
 	<p>City <?= $cityGET ?> could not be loaded</p>
 <?php else: ?>
 	<?php if (!empty($stats)): ?>
 		<table>
 			<thead>
 				<tr>
+					<th class="centre" colspan="3"><?= $cityInfo['city'] ?> <?= $cityInfo['flag'] ?></th>
+				</tr>
+				<tr>
 					<th>Month</th>
-					<th>PM 2.5</th>
+					<th class="center-align">PM 2.5</th>
 					<th>PM 10</th>
 				</tr>
 			</thead>
@@ -72,8 +87,10 @@ echo "";
 				<?php foreach ($stats as $month => $measurements): ?>
 					<tr>
 						<th><?= e($month) ?></th>
-						<td><?= e(array_sum($measurements['pm25']) / count($measurements['pm25'])) ?></td>
-						<td><?= e(array_sum($measurements['pm10']) / count($measurements['pm10'])) ?></td>
+						<td><?= e(round(array_sum($measurements['pm25']) / count($measurements['pm25']),2)) ?>
+							<?= e($units['pm25']) ?></td>
+						<td><?= e(round(array_sum($measurements['pm10']) / count($measurements['pm10']),2)) ?>
+							<?= e($units['pm10']) ?></td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
