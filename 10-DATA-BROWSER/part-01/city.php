@@ -74,20 +74,43 @@ echo "";
 	<?php if (!empty($stats)): ?>
 		<canvas id="aqi-chart" style="width: 300px; height: 200px;"></canvas>
 		<script src="scripts/chart.umd.js"></script>
+
+		<?php
+			$months = array_keys($stats);
+			sort($months);
+
+			$Ypm25 = $Ypm10 = [];
+			foreach ($months as $Xmonth) {
+				$monthMeasurements = $stats[$Xmonth];
+				$Ypm25[] = array_sum($monthMeasurements['pm25']) / count($monthMeasurements['pm25']);
+				$Ypm10[] = array_sum($monthMeasurements['pm10']) / count($monthMeasurements['pm10']);
+			}
+
+		?>
+
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
 				const ctx = document.getElementById('aqi-chart');
 				const chart = new Chart(ctx, {
 					type: 'line',
 					data: {
-						labels: ['label 01','label 02','label 03','label 04','label 05','label 06','label 07'],
-						datasets: [{
-							label: 'My First Dataset',
-							data: [65, 59, 80, 81, 56, 55, 40],
-							fill: false,
-							borderColor: 'rgb(75, 192, 192)',
-							tension: 0.1
-						}]
+						labels: <?= json_encode($months) ?>,
+						datasets: [
+							{
+								label: <?= json_encode("AQI, PM2.5 in {$units['pm25']}") ?>,
+								data: <?= json_encode($Ypm25) ?>,
+								fill: false,
+								borderColor: 'rgb(75, 192, 192)',
+								tension: 0.1
+							},
+							{
+								label: <?= json_encode("AQI, PM10 in {$units['pm10']}") ?>,
+								data: <?= json_encode($Ypm10) ?>,
+								fill: false,
+								borderColor: 'rgb(255, 192, 192)',
+								tension: 0.1
+							}
+						]
 					},
 				});
 			});
@@ -105,12 +128,12 @@ echo "";
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($stats as $month => $measurements): ?>
+				<?php foreach ($stats as $month => $monthMeasurements): ?>
 					<tr>
 						<th><?= e($month) ?></th>
-						<td><?= e(round(array_sum($measurements['pm25']) / count($measurements['pm25']),2)) ?>
+						<td><?= e(round(array_sum($monthMeasurements['pm25']) / count($monthMeasurements['pm25']),2)) ?>
 							<?= e($units['pm25']) ?></td>
-						<td><?= e(round(array_sum($measurements['pm10']) / count($measurements['pm10']),2)) ?>
+						<td><?= e(round(array_sum($monthMeasurements['pm10']) / count($monthMeasurements['pm10']),2)) ?>
 							<?= e($units['pm10']) ?></td>
 					</tr>
 				<?php endforeach; ?>
