@@ -21,16 +21,16 @@ if (!empty($cityBz2Filename)) {
 	$cityResults = json_decode(file_get_contents($fp), true)['results'];
 
 	foreach ($cityResults as $result) {
-		if (	$result['parameter']	!== 'pm25'
+		if (	!in_array($result['parameter'], ['pm25','pm10'])
 			||	$result['value'] < 0				)  continue;
 
 		$month = substr($result['date']['local'], 0, 7);
 
 		if (!isset($stats[$month])) {
-			$stats[$month] = [ 'pm25' => [] ];
+			$stats[$month] = [ 'pm25' => [], 'pm10' => [] ];
 		}
 
-		$stats[$month]['pm25'][] = $result['value'];
+		$stats[$month][$result['parameter']][] = $result['value'];
 
 //		echo "";
 	}
@@ -61,20 +61,24 @@ echo "";
 <?php else: ?>
 	<?php if (!empty($stats)): ?>
 		<table>
-			<tr>
-				<th>Month</th>
-				<th>Average</th>
-			</tr>
-			<?php foreach ($stats as $month => $measurements): ?>
+			<thead>
 				<tr>
-					<td><?= e($month) ?></td>
-					<td><?= e(array_sum($measurements['pm25']) / count($measurements['pm25'])) ?></td>
+					<th>Month</th>
+					<th>PM 2.5</th>
+					<th>PM 10</th>
 				</tr>
-			<?php endforeach; ?>
+			</thead>
+			<tbody>
+				<?php foreach ($stats as $month => $measurements): ?>
+					<tr>
+						<th><?= e($month) ?></th>
+						<td><?= e(array_sum($measurements['pm25']) / count($measurements['pm25'])) ?></td>
+						<td><?= e(array_sum($measurements['pm10']) / count($measurements['pm10'])) ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
 		</table>
 	<?php endif; ?>
 <?php endif; ?>
-
-
 
 <?php require_once __DIR__ . '/views/footer.inc.php'; ?>
