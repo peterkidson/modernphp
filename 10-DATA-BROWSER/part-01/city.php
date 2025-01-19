@@ -81,10 +81,31 @@ echo "";
 
 			$Ypm25 = $Ypm10 = [];
 			foreach ($months as $Xmonth) {
-				$monthMeasurements = $stats[$Xmonth];
-				$Ypm25[] = array_sum($monthMeasurements['pm25']) / count($monthMeasurements['pm25']);
-				$Ypm10[] = array_sum($monthMeasurements['pm10']) / count($monthMeasurements['pm10']);
+				$mstat = $stats[$Xmonth];
+				$Ypm25[] = count($mstat['pm25']) > 0 ? array_sum($mstat['pm25']) / max(count($mstat['pm25']),1) : 0;
+				$Ypm10[] = count($mstat['pm10']) > 0 ? array_sum($mstat['pm10']) / max(count($mstat['pm10']),1) : 0;
 			}
+
+			$datasets = [];
+			if (array_sum($Ypm25) > 0) {
+				$datasets[] = [
+						'label'			=> "AQI, PM2.5 in {$units['pm25']}",
+						'data'			=> $Ypm25,
+						'fill'			=> false,
+						'borderColor'	=> 'rgb(75, 192, 192)',
+						'tension'		=> 0.1
+				];
+			}
+			if (array_sum($Ypm10) > 0) {
+				$datasets[] = [
+						'label'			=> "AQI, PM10 in {$units['pm10']}",
+						'data'			=> $Ypm10,
+						'fill'			=> false,
+						'borderColor'	=> 'rgb(255, 192, 192)',
+						'tension'		=> 0.1
+				];
+			}
+			echo "";
 
 		?>
 
@@ -95,25 +116,11 @@ echo "";
 					type: 'line',
 					data: {
 						labels: <?= json_encode($months) ?>,
-						datasets: [
-							{
-								label: <?= json_encode("AQI, PM2.5 in {$units['pm25']}") ?>,
-								data: <?= json_encode($Ypm25) ?>,
-								fill: false,
-								borderColor: 'rgb(75, 192, 192)',
-								tension: 0.1
-							},
-							{
-								label: <?= json_encode("AQI, PM10 in {$units['pm10']}") ?>,
-								data: <?= json_encode($Ypm10) ?>,
-								fill: false,
-								borderColor: 'rgb(255, 192, 192)',
-								tension: 0.1
-							}
-						]
+						datasets: <?= json_encode($datasets) ?>
 					},
 				});
 			});
+
 		</script>
 
 		<table>
@@ -128,13 +135,24 @@ echo "";
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($stats as $month => $monthMeasurements): ?>
+				<?php foreach ($stats as $month => $mstat): ?>
 					<tr>
 						<th><?= e($month) ?></th>
-						<td><?= e(round(array_sum($monthMeasurements['pm25']) / count($monthMeasurements['pm25']),2)) ?>
-							<?= e($units['pm25']) ?></td>
-						<td><?= e(round(array_sum($monthMeasurements['pm10']) / count($monthMeasurements['pm10']),2)) ?>
-							<?= e($units['pm10']) ?></td>
+
+						<td>
+							<?php if (count($mstat['pm25']) > 0): ?>
+									<?= e(round(array_sum($mstat['pm25']) / count($mstat['pm25']),2)) ?> <?= e($units['pm25']) ?>
+									<?php else: ?>
+										<i>No data</i>
+									<?php endif ?>
+						</td>
+						<td>
+							<?php if (count($mstat['pm10']) > 0): ?>
+								<?= e(round(array_sum($mstat['pm10']) / count($mstat['pm10']),2)) ?> <?= e($units['pm10']) ?>
+							<?php else: ?>
+								<i>No data</i>
+							<?php endif ?>
+						</td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
