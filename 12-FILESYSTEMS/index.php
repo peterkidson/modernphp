@@ -9,14 +9,8 @@
 <body>
 <header><h1>Automatic Image List</h1></header>
 <main><pre><?php
+		$x = pathinfo('index.php',PATHINFO_EXTENSION);
 		$handle = opendir(__DIR__ . '/images');
-		/*
-		$currentFile = readdir($handle);
-		while ($currentFile !== false) {
-			 var_dump($currentFile);
-			 $currentFile = readdir($handle);
-		}
-		*/
 		$images = [];
 		while (($currentFile = readdir($handle)) !== false) {
 			if ($currentFile === '.' || $currentFile === '..') {
@@ -26,9 +20,9 @@
 			$images[] = $currentFile;
 		}
 
-		// var_dump($str2 = $str = 'hello');
-
 	foreach($images AS $image) {
+		$ext = pathinfo($image,PATHINFO_EXTENSION);
+
 		$src = "images/" . rawurlencode($image);
 		echo "";
 	}
