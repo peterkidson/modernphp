@@ -42,12 +42,9 @@ if (!empty($filename)) {
 		}
 
 		$stats[$month][$cityResult['parameter']][] = $cityResult['value'];
-
-//		echo "";
 	}
 }
 
-echo "";
 ?>
 
 
@@ -105,7 +102,6 @@ echo "";
 						'tension'		=> 0.1
 				];
 			}
-			echo "";
 
 		?>
 
@@ -115,8 +111,8 @@ echo "";
 				const chart = new Chart(ctx, {
 					type: 'line',
 					data: {
-						labels: <?= json_encode($months) ?>,
-						datasets: <?= json_encode($datasets) ?>
+						labels: 		<?= json_encode($months) 	?>,
+						datasets: 	<?= json_encode($datasets)	?>
 					},
 				});
 			});
