@@ -9,31 +9,13 @@
 <body>
 <header><h1>Automatic Image List</h1></header>
 <main><pre><?php
-		$x = pathinfo('index.php',PATHINFO_EXTENSION);
-		$handle = opendir(__DIR__ . '/images');
-		$images = [];
-		while (($currentFile = readdir($handle)) !== false) {
-			if ($currentFile === '.' || $currentFile === '..') {
-				continue;
-			}
-			var_dump($currentFile);
-			$images[] = $currentFile;
-		}
-
-	foreach($images AS $image) {
-		$ext = pathinfo($image,PATHINFO_EXTENSION);
-
-		$src = "images/" . rawurlencode($image);
+		$fe = file_exists(__DIR__ . '/images');
+		$id = is_dir(__DIR__ . '/images');
+		$fs = filesize(__DIR__ . '/images/IMG_0933.jpg');
 		echo "";
-	}
 
-
-		closedir($handle);
 		?></pre>
 
-	<?php foreach($images AS $image): ?>
-		<img src="images/<?= rawurlencode($image); ?>" alt="ohoh" />
-	<?php endforeach; ?>
 
 </main>
 </body>
