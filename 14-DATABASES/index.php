@@ -9,10 +9,17 @@ try {
 catch (PDOException $e) {
 	echo $e->getMessage();
 }
-$id = $_GET['id'];
+$title = 'x title';
+$content = 'x content';
 
-$query = $pdo->prepare('SELECT * FROM notes where id = :xid');
-$query->bindValue(':xid', $id, PDO::PARAM_INT);
+
+$query = $pdo->prepare('INSERT INTO `notes` (title, content) VALUES (:ptitle, :pcontent)');
+$query->bindValue(':ptitle', $title);
+$query->bindValue(':pcontent', $content);
+$query->execute();
+
+
+$query = $pdo->prepare('SELECT * FROM notes ');
 $query->execute();
 $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
