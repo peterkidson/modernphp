@@ -5,9 +5,12 @@ html {
         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-nav {
+.nav {
     background-color: #113343;
     height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav-brand {
@@ -29,13 +32,13 @@ nav {
 }
 
 .button {
-    /*font-size:30px;*/
+    display: inline-block;
     background-color: red;
     color: white;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0rem 1rem;
     border-radius: 0.5rem;
-    /*text-transform: uppercase;*/
+    line-height:2.5rem;
 }
 
 .button:hover {
