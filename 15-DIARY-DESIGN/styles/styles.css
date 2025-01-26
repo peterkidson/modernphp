@@ -53,3 +53,22 @@ html {
     margin-right: 0.4rem;
 }
 
+.main-heading {
+    color:  #113343;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.15em;
+}
+
+.card {
+    background-color: #f3f4f5;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);
+}
+
+.card__heading {
+    margin: 0;
+}
