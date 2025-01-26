@@ -27,3 +27,26 @@ nav {
 .nav-brand:hover .nav-brand__image {
     color: fuchsia;
 }
+
+.button {
+    /*font-size:30px;*/
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    /*text-transform: uppercase;*/
+}
+
+.button:hover {
+    background-color: #d81b60;
+}
+
+.button__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: relative;
+    top: 0.4rem;
+    margin-right: 0.4rem;
+}
+
