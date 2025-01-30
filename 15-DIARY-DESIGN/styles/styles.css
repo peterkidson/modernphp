@@ -99,12 +99,19 @@ html {
 
 .card {
     background-color:   #f3f4f5;
-    padding:            1rem;
+    padding:            0rem;
     margin-bottom:      2rem;
     border-radius:      1rem;
     box-shadow:         0 0.5rem 1rem rgba(0,0,0,0.5);
+    display:            flex;
+    overflow:           hidden;
 }
-
 .card__heading {
     margin:             0;
+}
+.card__image {
+    display:            block;
+    width:              30rem;
+    height:             20rem;
+    object-fit:         cover;
 }
