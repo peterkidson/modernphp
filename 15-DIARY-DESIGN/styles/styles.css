@@ -10,7 +10,7 @@ html {
 }
 
 .nav {
-    background-color:   darkgrey;
+    background-color:   black;
     height:             4rem;
 }
 .nav__layout {
@@ -57,12 +57,29 @@ html {
     margin-right:       0.4rem;
 }
 
+.main {
+    position:           relative;
+    overflow:           hidden;
+}
+.main::before {
+    content:            "";
+    display:            block;
+    position:           absolute;
+    top:                -1rem;
+    bottom:             -1rem;
+    width:              10rem;
+    background-image:   url('../images/bg-lines2.svg');
+    background-position:right center;
+    background-size:    cover;
+}
 .main-heading {
     color:              darkgrey;
     font-size:          2.5rem;
     text-transform:     uppercase;
     text-align:         center;
     letter-spacing:     0.15em;
+    margin-top:         0;
+    padding-top:        0.67em;
 }
 
 .container {
