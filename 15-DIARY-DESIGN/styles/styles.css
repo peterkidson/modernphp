@@ -60,6 +60,7 @@ html {
 .main {
     position:           relative;
     overflow:           hidden;
+    padding-bottom:     1.75rem;
 }
 .main::before,
 .main::after {
@@ -210,6 +211,7 @@ html {
     line-height:        1.5rem;
     margin-left:        0.5rem;
     border-radius:      0.5rem;
+    background-color:   white;
 }
 .pagination__link:hover {
     color:              white;
@@ -219,4 +221,29 @@ html {
 .pagination__link--active {
     border:             0.125rem solid mediumseagreen;
     color:              mediumseagreen;
+}
+
+.footer {
+    background-color:   black;
+    padding-top:        3rem;
+    padding-bottom:     3rem;
+}
+.footer::after {
+    content:            "";
+    display:            block;
+    width:              7.5rem;
+    height:             0.05rem;
+    background-color:   white;
+    margin:             0 auto;
+    opacity:            0.5;
+    margin-top:         2rem;
+}
+.footer__heading {
+    color:              white;
+}
+.footer__desc {
+    color:              green;
+    max-width:          20rem;
+    line-height:        1.33em;
+    font-size:          1rem;
 }
