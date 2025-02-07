@@ -244,6 +244,38 @@ html {
 .footer__desc {
     color:              green;
     max-width:          20rem;
-    line-height:        1.33em;
+    line-height:        1.3em;
     font-size:          1rem;
+}
+
+.form-group {
+    display:            flex;
+}
+.form-group__label,
+.form-group__input {
+    display:                    block;
+    color:                      darkslategrey;
+    background-color:           lightgrey;
+    border-style:               solid;
+    border-color:               black;
+    padding:                    0.2rem 0.2rem;
+}
+.form-group__label {
+    text-transform:             uppercase;
+    flex:                       0 0 7rem;
+    border-top-width:           0.13rem;
+    border-left-width:          0.13rem;
+    border-bottom-width:        0.13rem;
+    border-right-width:         0rem;
+    border-top-left-radius:     0.5rem;
+    border-bottom-left-radius:  0.5rem;
+}
+.form-group__input {
+    flex:                       10rem;
+    border-top-width:           0.13rem;
+    border-right-width:         0.13rem;
+    border-bottom-width:        0.13rem;
+    border-left-width:          0rem;
+    border-top-right-radius:    0.5rem;
+    border-bottom-right-radius: 0.5rem;
 }
