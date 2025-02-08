@@ -43,6 +43,7 @@ html {
     padding:            0rem 1rem;
     border-radius:      0.5rem;
     line-height:        2.5rem;
+    border:             0;
 }
 
 .button:hover {
@@ -243,18 +244,19 @@ html {
 }
 .footer__desc {
     color:              green;
-    max-width:          20rem;
+    max-width:          50rem;
     line-height:        1.3em;
     font-size:          1rem;
 }
 
 .form-group {
     display:            flex;
+    margin-bottom:      0.5rem;
 }
 .form-group__label,
 .form-group__input {
     display:                    block;
-    color:                      darkslategrey;
+    color:                      black;
     background-color:           lightgrey;
     border-style:               solid;
     border-color:               black;
@@ -278,4 +280,8 @@ html {
     border-left-width:          0rem;
     border-top-right-radius:    0.5rem;
     border-bottom-right-radius: 0.5rem;
+}
+.form-submit {
+    display:                    flex;
+    justify-content:            flex-end;
 }
