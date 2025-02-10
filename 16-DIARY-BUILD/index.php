@@ -1,15 +1,22 @@
 <?php
 
-    global $pdo;
+	global $pdo;
 
-    require __DIR__ . '/inc/functions.inc.php';
-    require __DIR__ . '/inc/db-connect.inc.php';
+	require __DIR__ . '/inc/functions.inc.php';
+	require __DIR__ . '/inc/db-connect.inc.php';
 
-    $stmt = $pdo->prepare("SELECT * FROM `entries`");
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$perPage	= 2;
+	$page 	= isset($_GET['page']) ? (int) $_GET['page'] : 1;
+	$offset	= $perPage * ($page-1);
 
-    echo "";
+
+	$stmt = $pdo->prepare("SELECT * FROM entries ORDER BY MDATE DESC, id DESC LIMIT :perPage OFFSET :offset");
+	$stmt->bindParam(':perPage',	$perPage,	PDO::PARAM_INT);
+	$stmt->bindParam(':offset',	$offset,	PDO::PARAM_INT);
+	$stmt->execute();
+	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	echo "";
 ?>
 
 <?php require __DIR__ . '/views/header.view.php'; ?>
