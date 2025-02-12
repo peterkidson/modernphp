@@ -5,6 +5,8 @@ global $pdo;
 require __DIR__ . '/inc/functions.inc.php';
 require __DIR__ . '/inc/db-connect.inc.php';
 
+date_default_timezone_set('Africa/Juba');
+
 $itemsPerPage	= 2;
 
 $stmt = $pdo->prepare("SELECT COUNT(*) AS count FROM entries");
@@ -36,7 +38,11 @@ echo "";
 			<img class="card__image" src="images\pexels-canva-studio-3153199.jpg" alt="" />
 		</div>
 		<div class="card__desc-container">
-			<div class="card__desc-time"><?= e($result['mdate']) ?></div>
+			<?php
+				$explodedDate = explode('-', $result['mdate']);	// yyyy-mm-dd
+				$timestamp = mktime(12,0,0, $explodedDate[1], $explodedDate[2], $explodedDate[0]);
+			?>
+			<div class="card__desc-time"><?= e(date('d m Y', $timestamp)); ?></div>
 			<h2 class="card__heading"><?= e($result['title']) ?></h2>
 			<p class="card__paragraph">
 				<?= nl2br(e($result['message'])) ?>
