@@ -9,7 +9,7 @@ if (!empty($_FILES) && !empty($_FILES[FILENAME])) {
 		$uname = preg_replace('/[^A-Za-z0-9]/', '', $nameNoExt);
 
 		$srcImage = $_FILES[FILENAME]['tmp_name'];
-		$dstImage = __DIR__ . '/' . $uname . '-' . time();
+		$dstImage = __DIR__ . '/' . $uname . '-' . time() . 'jpg';
 
 		[$width, $height] = getimagesize($srcImage);
 
@@ -24,12 +24,13 @@ if (!empty($_FILES) && !empty($_FILES[FILENAME])) {
 
 		imagecopyresampled($newimg, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
+		header('Content-Type: image/jpeg');
+		imagejpeg($newimg);
 		imagejpeg($newimg, $dstImage);
 
 		echo "";
-
-
 	}
+	echo "";
 }
 ?>
 
@@ -44,7 +45,7 @@ if (!empty($_FILES) && !empty($_FILES[FILENAME])) {
 </head>
 <body>
 
-<form method="POST" action="index2.php" enctype="multipart/form-data">
+<form method="POST" action="index156.php" enctype="multipart/form-data">
 	<input type="file" name=<?= FILENAME ?> />
 	<input type="submit" value="Submit" />
 </form>
