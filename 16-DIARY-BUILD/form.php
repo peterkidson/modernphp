@@ -5,18 +5,57 @@ global $pdo;
 require __DIR__ . '/inc/functions.inc.php';
 require __DIR__ . '/inc/db-connect.inc.php';
 
-if (!empty($_POST)) {
+const FILENAME = "image";
+
+if (!empty($_POST))
+{
 	$title		= (string) ($_POST['title']	?? '');
 	$date			= (string) ($_POST['date']		?? '');
 	$message		= (string) ($_POST['message']	?? '');
+	$imageName	= null;
 
-	$stmt = $pdo->prepare('INSERT INTO entries (title, mdate, message) VALUES(:title, :date, :message)');
+	if (!empty($_FILES) && !empty($_FILES[FILENAME]))
+	{
+		$usize = $_FILES[FILENAME]["size"];
+
+		if (	$_FILES[FILENAME]["error"] === 0
+				&& $usize > 0 && $usize < 10000000) {
+			$nameNoExt = pathinfo($_FILES[FILENAME]["name"], PATHINFO_FILENAME);
+			$name = preg_replace('/[^A-Za-z0-9]/', '', $nameNoExt);
+
+			$srcImage = $_FILES[FILENAME]['tmp_name'];
+			$imageName = $name . '-' . time() . '.jpg';//$name . "." . $_FILES[FILENAME]["type"];
+			$dstImage = __DIR__ . '/uploads/' . $imageName;
+
+			[$width, $height] = getimagesize($srcImage);
+
+			$maxdim = 400;
+			$scalefactor = $maxdim / max($width, $height);
+			$newwidth  = $width  * $scalefactor;
+			$newheight = $height * $scalefactor;
+
+			$img = imagecreatefromjpeg($srcImage);
+
+			$newimg = imagecreatetruecolor($newwidth, $newheight);
+
+			imagecopyresampled($newimg, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+//			header('Content-Type: image/jpeg');
+//			imagejpeg($newimg);
+			imagejpeg($newimg, $dstImage);
+
+			echo "";
+		}
+	}
+
+	$stmt = $pdo->prepare('INSERT INTO entries (title, mdate, message, image) VALUES(:title, :date, :message, :image)');
 	$stmt->bindParam(':title', 	$title);
 	$stmt->bindParam(':date', 	$date);
 	$stmt->bindParam(':message', $message);
+	$stmt->bindParam(':image', 	$imageName);
 	$stmt->execute();
-
 }
+
 echo "";
 ?>
 
@@ -24,18 +63,22 @@ echo "";
 
 <h1 class="main-heading">New Entry</h1>
 
-<form method="POST" action="form.php">
+<form method="POST" action="form.php"  enctype="multipart/form-data">
 
 	<div class="form-group">
-		<label class="form-group__label" for="title">Title:</label>
+		<label class="form-group__label" for="title">Title</label>
 		<input class="form-group__input" type="text" id="title" name="title" required/>
 	</div>
 	<div class="form-group">
-		<label class="form-group__label" for="date">Date:</label>
+		<label class="form-group__label" for="date">Date</label>
 		<input class="form-group__input" type="date" id="date" name="date" required/>
 	</div>
 	<div class="form-group">
-		<label class="form-group__label" for="message">Message:</label>
+		<label class="form-group__label" for="image">Image</label>
+		<input class="form-group__input" type="file" id=<?= FILENAME ?> name=<?= FILENAME ?> />
+	</div>
+	<div class="form-group">
+		<label class="form-group__label" for="message">Message</label>
 		<textarea class="form-group__input" id="message" name="message" rows="6" required></textarea>
 	</div>
 	<div class="form-submit">

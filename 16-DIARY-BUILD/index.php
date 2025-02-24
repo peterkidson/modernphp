@@ -7,7 +7,7 @@ require __DIR__ . '/inc/db-connect.inc.php';
 
 date_default_timezone_set('Africa/Juba');
 
-$itemsPerPage	= 2;
+$itemsPerPage	= 3;
 
 $stmt = $pdo->prepare("SELECT COUNT(*) AS count FROM entries");
 $stmt->execute();
@@ -19,7 +19,7 @@ $page 	= max($page, 1);
 $page 	= min($page, $numPages);
 $offset	= $itemsPerPage * ($page-1);
 
-$stmt = $pdo->prepare("SELECT * FROM entries ORDER BY MDATE DESC, id DESC LIMIT :itemsPerPage OFFSET :offset");
+$stmt = $pdo->prepare("SELECT * FROM entries ORDER BY MDATE DESC, id ASC LIMIT :itemsPerPage OFFSET :offset");
 $stmt->bindParam(':itemsPerPage',	$itemsPerPage,	PDO::PARAM_INT);
 $stmt->bindParam(':offset',			$offset,			PDO::PARAM_INT);
 $stmt->execute();
@@ -34,9 +34,11 @@ echo "";
 
 <?php foreach ($results as $result) : ?>
 	<div class="card">
-		<div class="card__image-container">
-			<img class="card__image" src="images\pexels-canva-studio-3153199.jpg" alt="" />
-		</div>
+		<?php if (!empty($result['image'])) : ?>
+			<div class="card__image-container">
+				<img class="card__image" src="uploads\<?= e($result['image']) ?>" alt="" />
+			</div>
+		<?php endif ?>
 		<div class="card__desc-container">
 			<?php
 				$explodedDate = explode('-', $result['mdate']);	// yyyy-mm-dd
