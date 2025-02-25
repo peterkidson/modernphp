@@ -27,24 +27,28 @@ if (!empty($_POST))
 			$imageName = $name . '-' . time() . '.jpg';//$name . "." . $_FILES[FILENAME]["type"];
 			$dstImage = __DIR__ . '/uploads/' . $imageName;
 
-			[$width, $height] = getimagesize($srcImage);
+			if (!empty($imageSize = getimagesize($srcImage)))
+			{
+				[$width, $height] = $imageSize;
 
-			$maxdim = 400;
-			$scalefactor = $maxdim / max($width, $height);
-			$newwidth  = $width  * $scalefactor;
-			$newheight = $height * $scalefactor;
+				$maxdim = 400;
+				$scalefactor = $maxdim / max($width, $height);
+				$newwidth  = $width  * $scalefactor;
+				$newheight = $height * $scalefactor;
 
-			$img = imagecreatefromjpeg($srcImage);
+				if (!empty($im = imagecreatefromjpeg($srcImage)))
+				{
+					$newimg = imagecreatetruecolor($newwidth, $newheight);
 
-			$newimg = imagecreatetruecolor($newwidth, $newheight);
+					imagecopyresampled($newimg, $im, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
-			imagecopyresampled($newimg, $img, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+					//			header('Content-Type: image/jpeg');
+					//			imagejpeg($newimg);
+					imagejpeg($newimg, $dstImage);
 
-//			header('Content-Type: image/jpeg');
-//			imagejpeg($newimg);
-			imagejpeg($newimg, $dstImage);
-
-			echo "";
+					echo "";
+				}
+			}
 		}
 	}
 
