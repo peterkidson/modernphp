@@ -1,7 +1,8 @@
 <?php
 
 echo "<pre>";
-var_dump($_SERVER);
-
+echo "hello world";
+//var_dump($_SERVER);
+echo "</pre>"
 ?>
 

@@ -9,7 +9,7 @@
 <body>
 
 <?php
-echo "Welcome back!\nWe're glad to see you again.<br/>Check out our new features.";	 ?>
+echo "Welcome back!\nWe're glad to see you again.<br/>Check out our new features.";
 ?>
 
 

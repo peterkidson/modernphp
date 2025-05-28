@@ -1,7 +1,8 @@
 <?php
 
 header("Content-Type: text/css");
-?>body {
+?>
+body {
 	background-color: red;
 }
 
