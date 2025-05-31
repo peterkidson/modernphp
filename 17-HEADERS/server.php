@@ -3,8 +3,8 @@
 require __DIR__ . '../../inc/functions.inc.php';
 
 echo "<pre>";
-var_dump($_SERVER);
-var_dump($_SERVER['PHP_SELF']);
+//var_dump($_SERVER);
+var_dump($_SERVER['REQUEST_URI']);
 
 ?>
 
