@@ -2,6 +2,21 @@
 
 // Global funcs
 
+
+function connectToDB(string $host, string $user, string $pw, string $database): PDO
+{
+   try {
+      $pdo = new PDO("mysql:host=$host;dbname=$database", $user, $pw, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+   }
+   catch (PDOException $e) {
+      echo $e->getMessage();
+      die();
+   }
+   return $pdo;
+}
+
+
+
 function e($value)
 {
 	return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
