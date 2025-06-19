@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+//declare(strict_types=1);
 
 function f(int $number) : int
 {
@@ -7,5 +7,4 @@ function f(int $number) : int
 }
 
 echo f(1);
-echo f("1");
 

@@ -1,19 +1,12 @@
 <?php
 
-require_once __DIR__ . '../../inc/functions.inc.php';
+echo "here";
 
-$pdo = connectToDB('localhost', 'root', '', 'names');    // Can't get other users to work :-(
+require __DIR__ . '/inc/all.inc.php';
 
-$stmt = $pdo->prepare("SELECT * from names");
-$stmt->execute();
-var_dump($stmt->fetch(PDO::FETCH_ASSOC));
 
 ?>
-
-<!DOCTYPE html>
-<?php //require_once __DIR__ . 'views/header.php'; ?>
-<!---->
-<!---->
-<?php //require_once __DIR__ . 'views/footer.php'; ?>
+<?php require __DIR__ . '/views/header.php'; ?>
 
 
+<?php require __DIR__ . '/views/footer.php'; ?>
