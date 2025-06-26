@@ -8,14 +8,14 @@ if (empty($name)) {
     die();
 }
 
-$nameEntries = fetchNameEntries($name);
+$entries = fetchNameEntries($name);
 
 ?>
 <?php require __DIR__ . '/views/header.php'; ?>
 
 <h3>Statistics for the name : <?= e($name) ?></h3>
 
-<?php if (empty($nameEntries)): ?>
+<?php if (empty($entries)): ?>
     <p>No entries</p>
 <?php else: ?>
     <table>
@@ -26,7 +26,7 @@ $nameEntries = fetchNameEntries($name);
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($nameEntries as $entry) : ?>
+            <?php foreach ($entries as $entry) : ?>
                 <tr>
                     <td><?= e($entry['year'])  ?></td>
                     <td><?= e($entry['count']) ?></td>
