@@ -12,7 +12,6 @@ function fetchNamesByInitial(string $char) : array
    $stmt->bindValue(':expr', $char . '%');
    $stmt->execute();
    $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-   //$names = [];
    foreach ($rs as $r) $names[] = $r['name'];
    return $names;
 }
@@ -25,6 +24,20 @@ function fetchNameEntries(string $name) : array
    $stmt->bindValue(':name',  $name );
    $stmt->execute();
 
+   $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+   return $rs;
+}
+
+function fetchNamesOverview() : array
+{
+   global $pdo;
+
+   $stmt = $pdo->prepare("select `name`, SUM(`count`) as sum 
+                                from names.names n 
+                                group by `name` 
+                                order by sum desc 
+                                limit 10");
+   $stmt->execute();
    $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
    return $rs;
 }
