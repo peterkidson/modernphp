@@ -1,14 +1,17 @@
 <?php
 
-//function render($view)
-//{
-//    ob_start();
-//    require __DIR__ . '/views/pages/' . $view . '.php';
-//
-//    $contents = ob_get_clean();
-//}
-//
-//render('index.view');
+function render($view)
+{
+    ob_start();
+    require __DIR__ . '/views/pages/' . $view . '.php';
+    $contents = ob_get_clean();
 
-echo "hello world1";
+   require __DIR__ . '/views/layouts/main.view.php';
+
+
+
+}
+
+render('index.view');
+
 echo "";
