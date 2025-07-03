@@ -1,24 +1,23 @@
 <?php
 
-function render($view, $params)
-{
-	foreach ($params as $key => $value) {
-		${$key} = $value;
-	}
-	// == extract($params);
-	ob_start();
-	require __DIR__ . '/views/pages/' . $view . '.php';
-	$contents = ob_get_clean();
+require __DIR__ . '/inc/all.inc.php';
 
-	require __DIR__ . '/views/layouts/main.view.php';
-}
 
-$name = 'Lauren';
-$varname = 'name';
+$overview = fetchNamesOverview();
 
-render('index.view', [
-	'name'   => ${$varname},
-	'sum'    => 321
-]);
+?>
+<?php require __DIR__ . '/views/header.php'; ?>
 
-echo "";
+
+<h2>Top Names</h2>
+<ol>
+   <?php foreach ($overview as $row): ?>
+      <li>
+          <a href="name.php?<?= e(http_build_query(['name' => $row['name']])); ?>">
+            <?= e($row['name']); ?>
+         </a>
+      </li>
+   <?php endforeach; ?>
+</ol>
+
+<?php require __DIR__ . '/views/footer.php'; ?>
