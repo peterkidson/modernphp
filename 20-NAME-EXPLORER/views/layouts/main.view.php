@@ -7,7 +7,7 @@
    <title>MyDoc</title>
 </head>
 <body>
-   <header><h2>TITLE198</h2></header>
+   <header><h2>TITLE</h2></header>
    <main>
       <?= $contents ?>
    </main>

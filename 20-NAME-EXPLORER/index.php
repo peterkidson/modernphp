@@ -1,17 +1,24 @@
 <?php
 
-function render($view)
+function render($view, $params)
 {
-    ob_start();
-    require __DIR__ . '/views/pages/' . $view . '.php';
-    $contents = ob_get_clean();
+	foreach ($params as $key => $value) {
+		${$key} = $value;
+	}
+	// == extract($params);
+	ob_start();
+	require __DIR__ . '/views/pages/' . $view . '.php';
+	$contents = ob_get_clean();
 
-   require __DIR__ . '/views/layouts/main.view.php';
-
-
-
+	require __DIR__ . '/views/layouts/main.view.php';
 }
 
-render('index.view');
+$name = 'Lauren';
+$varname = 'name';
+
+render('index.view', [
+	'name'   => ${$varname},
+	'sum'    => 321
+]);
 
 echo "";

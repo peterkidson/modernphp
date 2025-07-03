@@ -4,7 +4,7 @@ require __DIR__ . '../../inc/functions.inc.php';
 if ( ($id = $_GET['id'] ?? -1) > 5) {
     require './status/notfound.php';
     die();
-};
+}
 
 
 ?><!DOCTYPE html>
