@@ -1,7 +1,3 @@
-<?php
-$alphabet = gen_alphabet();
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,3 +19,7 @@ $alphabet = gen_alphabet();
     </nav>
 </header>
 <main>
+	<?= $contents; ?>
+</main>
+</body>
+</html>
