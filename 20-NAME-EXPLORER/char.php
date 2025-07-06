@@ -23,7 +23,7 @@ render('char.view', [
 	'pagination'      => [
 		'page'      => $page,
 		'count'     => $count,
-		'pagezize'  => PAGESIZE,
+		'pagesize'  => PAGESIZE,
 	]
 ]);
 
