@@ -2,6 +2,8 @@
 
 require __DIR__ . '/inc/all.inc.php';
 
+const PAGESIZE = 10;
+
 $char = strtoupper((string)($_GET['char'] ?? ''));
 if (strlen($char) > 1)
 	$char = $char[0];
@@ -10,12 +12,19 @@ if (strlen($char) === 0) {
 	die;
 }
 
+$page = (int)($_GET['page'] ?? 1);
 
-$namesByInitial = fetchNamesByInitial($char);
+$namesByInitial   = fetchNamesByInitial($char, $page);
+$count            = countNamesByInitial($char);
 
 render('char.view', [
-    'namesByInitial'    => $namesByInitial,
-    'char'              => $char,
+	'namesByInitial'  => $namesByInitial,
+	'char'            => $char,
+	'pagination'      => [
+		'page'      => $page,
+		'count'     => $count,
+		'pagezize'  => PAGESIZE,
+	]
 ]);
 
 
