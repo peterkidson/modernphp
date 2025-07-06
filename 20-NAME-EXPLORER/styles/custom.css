@@ -1,0 +1,7 @@
+a.active,
+a.active:visited {
+    /*border-color: var(--accent);*/
+    border-color: var(--accent);
+    background-color: LightBlue;
+    color: var(--accent);
+}

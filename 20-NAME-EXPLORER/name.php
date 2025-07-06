@@ -12,6 +12,7 @@ $entries = fetchNameEntries($name);
 
 render('name.view', [
 	'name'      => $name,
+	'char'      => $name[0],
 	'entries'   => $entries,
 ]);
 
