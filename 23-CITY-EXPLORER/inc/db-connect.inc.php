@@ -9,7 +9,7 @@ catch (PDOException $e) {
     echo 'A problem occured with the database connection...' . $e->getMessage();
     die();
 }
-$stmt = $pdo->prepare('SELECT count(*) as count FROM `worldcities`');
-$stmt->execute();
-$rs = $stmt->fetch(PDO::FETCH_ASSOC);
-var_dump($rs);
+//$stmt = $pdo->prepare('SELECT * FROM `worldcities`');
+//$stmt->execute();
+//$rs = $stmt->fetch(PDO::FETCH_ASSOC);
+//var_dump($rs);
