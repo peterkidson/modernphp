@@ -1,6 +1,6 @@
 <h3>Statistics for the name : <?= e($name) ?></h3>
 
-<?php if (empty($cities)): ?>
+<?php if (empty($citiesRepo)): ?>
     <p>No entries</p>
 <?php else: ?>
     <table>
@@ -11,7 +11,7 @@
         </tr>
         </thead>
         <tbody>
-		  <?php foreach ($cities as $entry) : ?>
+		  <?php foreach ($citiesRepo as $entry) : ?>
             <tr>
                 <td><?= e($entry['year']) ?></td>
                 <td><?= e($entry['count']) ?></td>

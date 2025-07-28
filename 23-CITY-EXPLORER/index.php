@@ -1,13 +1,11 @@
 <?php
 
-use src\WorldCityModel;
-
 require __DIR__ . '/inc/all.inc.php';
 
-$mh = new WorldCityModel();
-$mh->city = 'Maidenhead';
-$mh->population = 1000;
+$db = new DbConnection();
+$worldCityRepository = new WorldCityRepository($db->pdo());
+$entries = $worldCityRepository->fetch();
 
-$cities = [ $mh ];
-
-render('index.view', ['cities' => $cities]);
+render('index.view', [
+    'entries' => $entries
+]);

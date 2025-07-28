@@ -4,4 +4,4 @@ require __DIR__ . '/inc/all.inc.php';
 
 $overview = fetchNamesOverview();
 
-render('index.view', ['overview' => $overview]);
+crender('index.view', ['overview' => $overview]);

@@ -22,7 +22,7 @@ $page = (int)($_GET['page'] ?? 1);
 $namesByInitial   = fetchNamesByInitial($char, $page);
 $count            = countNamesByInitial($char);
 
-render('char.view', [
+crender('char.view', [
 	'namesByInitial'  => $namesByInitial,
 	'char'            => $char,
 	'pagination'      => [

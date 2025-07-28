@@ -10,7 +10,7 @@ if (empty($name)) {
 
 $entries = fetchNameEntries($name);
 
-render('name.view', [
+crender('name.view', [
 	'name'      => $name,
 	'char'      => $name[0],
 	'entries'   => $entries,
