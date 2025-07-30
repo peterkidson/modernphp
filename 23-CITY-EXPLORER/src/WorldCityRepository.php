@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
 
 class WorldCityRepository
 {
-
 	public function __construct(private PDO $pdo)
 	{
 	}
@@ -17,10 +17,29 @@ class WorldCityRepository
 //            DESC LIMIT 10');
 		$stmt = $this->pdo->prepare('SELECT * FROM worldcities ORDER BY population DESC LIMIT 10');
 		$stmt->execute();
-		$entries = $stmt->fetchAll(PDO::FETCH_CLASS, 'WorldCityModel');
-//		var_dump($entries[0]->city);
+//		$entries = $stmt->fetchAll(PDO::FETCH_CLASS, 'WorldCityModel');
 
-		return $entries;
+		$models = [];
+		$entries = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($entries as $entry) {
+			$models[] = new WorldCityModel(
+				$entry['id'],
+				$entry['city'],
+				$entry['city_ascii'],
+				(float) $entry['lat'],
+				(float) $entry['lng'],
+				$entry['country'],
+				$entry['iso2'],
+				$entry['iso3'],
+				$entry['admin_name'],
+				$entry['capital'],
+				$entry['population'],
+			);
+		}
+
+		//		var_dump($entries[0]->city);
+
+		return $models;
 	}
 }
 
