@@ -13,8 +13,9 @@ class WorldCityModel
 		public string	$iso3,
 		public string	$adminName,
 		public string	$capital,
-		public int		$population, ) { }
-	public static function construct2(array $cityArr): WorldCityModel {
+		public int		$population, ) {
+	}
+	public static function constructor2(array $cityArr): WorldCityModel {
 		return new WorldCityModel(
 			$cityArr['id'],
 			$cityArr['city'],

@@ -1,5 +1,4 @@
 <h1>List of cities:</h1>
-
 <ul>
     <?php foreach($entries AS $city): ?>
         <li>

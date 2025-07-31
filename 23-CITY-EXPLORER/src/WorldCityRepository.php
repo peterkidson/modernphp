@@ -15,10 +15,10 @@ class WorldCityRepository
 		if (empty($entry)) {
 			return null;
 		}
-		return WorldCityModel::construct2($entry);
+		return WorldCityModel::constructor2($entry);
 	}
 
-	public function fetch(): array
+	public function fetchAll(): array
 	{
 		$stmt = $this->pdo->prepare('SELECT * FROM worldcities ORDER BY population DESC LIMIT 10');
 		$stmt->execute();
@@ -26,7 +26,7 @@ class WorldCityRepository
 		$models = [];
 		$entries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		foreach ($entries as $entry) {
-			$models[] = WorldCityModel::construct2($entry);
+			$models[] = WorldCityModel::constructor2($entry);
 		}
 
 		return $models;
