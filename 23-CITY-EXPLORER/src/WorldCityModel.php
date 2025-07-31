@@ -13,7 +13,23 @@ class WorldCityModel
 		public string	$iso3,
 		public string	$adminName,
 		public string	$capital,
-		public int		$population, )
-	{
+		public int		$population, ) { }
+	public static function construct2(array $cityArr): WorldCityModel {
+		return new WorldCityModel(
+			$cityArr['id'],
+			$cityArr['city'],
+			$cityArr['city_ascii'],
+			(float)$cityArr['lat'],
+			(float)$cityArr['lng'],
+			$cityArr['country'],
+			$cityArr['iso2'],
+			$cityArr['iso3'],
+			$cityArr['admin_name'],
+			$cityArr['capital'],
+			$cityArr['population'],
+		);
+	}
+	public function fullName(): string {
+		return $this->city.", ".$this->country;
 	}
 }

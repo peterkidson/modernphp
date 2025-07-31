@@ -1,4 +1,4 @@
-<h1>City: <?= e($city->city)?>, <?= e($city->country)?></h1>
+<h1><?= e($city->fullName())?></h1>
 
 <table>
 	<tbody>
