@@ -2,18 +2,20 @@
 
 require __DIR__ . '/inc/all.inc.php';
 
+$page = (int) ($_GET['page'] ?? 1);
+$perPage = 10;
 
-//$cc = countryFlag('us');
-//echo "$cc  ";
-//$cc = countryFlag('th');
-//echo "$cc  ";
-//die();
 
 $db = new DbConnection();
 $worldCityRepository = new WorldCityRepository($db->pdo());
-$entries = $worldCityRepository->fetchAll();
+
+$count = $worldCityRepository->count();
+$cities = $worldCityRepository->paginate($page,$perPage);
 
 render('index.view', [
-    'entries' => $entries
+	'cities' 	=> $cities,
+	'count'		=> $count,
+	'perPage'	=> $perPage,
+	'page'		=> $page,
 ]);
 

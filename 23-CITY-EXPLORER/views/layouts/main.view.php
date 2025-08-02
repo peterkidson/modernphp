@@ -12,7 +12,7 @@
         <h1>
             <a href="index.php">Cities Explorer</a>
         </h1>
-        <p>Explore and find cities</p>
+        <p>Explore and Find cities</p>
     </header>
     <main>
         <?php echo $contents; ?>

@@ -13,7 +13,7 @@ $alphabet = gen_alphabet();
 <body>
 <header>
     <h1>Name explorer</h1>
-    <p>Explore and find names</p>
+    <p>Explore and Find names</p>
     <nav>
 		 <?php foreach ($alphabet as $character): ?>
            <a href="char.php?<?= http_build_query(['char' => $character]); ?>">

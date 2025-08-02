@@ -15,7 +15,7 @@ class WorldCityModel
 		public string	$capital,
 		public int		$population, ) {
 	}
-	public static function constructor2(array $cityArr): WorldCityModel {
+	public static function pseudoConstructor(array $cityArr): WorldCityModel {
 		return new WorldCityModel(
 			$cityArr['id'],
 			$cityArr['city'],
