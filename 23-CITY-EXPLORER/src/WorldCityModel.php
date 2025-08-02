@@ -31,6 +31,9 @@ class WorldCityModel
 		);
 	}
 	public function fullName(): string {
-		return $this->city.", ".$this->country;
+		return "$this->city ({$this->flag()} $this->country)";
+	}
+	public function flag() : string {
+		return countryFlag($this->iso2);
 	}
 }

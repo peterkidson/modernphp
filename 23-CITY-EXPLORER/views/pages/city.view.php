@@ -15,6 +15,10 @@
 		<td><?= e($city->iso2)?></td>
 	</tr>
 	<tr>
+		<th>Flag</th>
+		<td><?= e($city->flag())?></td>
+	</tr>
+	<tr>
 		<th>Population</th>
 		<td><?= e($city->population)?></td>
 	</tr>
