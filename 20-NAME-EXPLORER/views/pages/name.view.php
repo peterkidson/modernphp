@@ -1,4 +1,4 @@
-<h3>Statistics for the name : <?= e($name) ?></h3>
+<h3>Statistics for the name : <?= e($colname) ?></h3>
 
 <?php if (empty($citiesRepo)): ?>
     <p>No entries</p>

@@ -14,6 +14,19 @@ if (empty($city)) {
 	die();
 }
 
+const COLS	 = [ 'city' => 'txt', 'country' => 'txt', 'iso2' => 'txt', 'population' => 'int' ];
+
+if (!empty($_POST)) {
+	foreach(COLS as $colname => $coltype) {
+		if (empty($city->$colname = ($coltype=='txt') ? ($_POST[$colname] ?? '') : ((int) $_POST[$colname] ?? 0))) {
+			header('Location: index.php');
+			die();
+		}
+	}
+
+	$worldCityRepository->update($city,COLS);
+}
+
 render('edit.view', [
     'city' => $city
 ]);

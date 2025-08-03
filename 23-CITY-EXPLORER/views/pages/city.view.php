@@ -1,4 +1,4 @@
-<h1><?= e($city->fullName())?></h1>
+<a href="edit.php?<?= http_build_query(['id' => $city->id]); ?>"> <h1><?= e($city->fullName())?></h1></a>
 
 <table>
 	<tbody>

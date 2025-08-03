@@ -64,5 +64,22 @@ class WorldCityRepository
 		$rs = $stmt->fetch(PDO::FETCH_NUM);
 		return $rs[0];
 	}
+
+	public function update(WorldCityModel $city, array $cols): void
+	{
+		$set = '';
+		foreach($cols as $colname => $coltype) {
+			$set .= (empty($set) ? '' : ', ') . $colname . ' = :' . $colname ;
+		}
+
+		$stmt = $this->pdo->prepare('UPDATE worldcities SET ' . $set . ' WHERE id = :id');
+
+		$stmt->bindValue(":id", $city->id, PDO::PARAM_INT);
+		foreach ($cols as $colname => $coltype) {
+			$stmt->bindValue(":" . $colname, $city->$colname, $coltype=='txt' ? PDO::PARAM_STR : PDO::PARAM_INT);
+		}
+
+		$stmt->execute();
+	}
 }
 
