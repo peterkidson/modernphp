@@ -1,7 +1,7 @@
-<?php
+<?php		// Exercise 28
 
 interface SocialMediaPublisher {
-	public function publish(string $content, string $token);
+//	public function publish(string $content, string $token);
 	public function publishPost(string $publisher, string $content, string $token);
 }
 
