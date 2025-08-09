@@ -23,7 +23,7 @@ class Product {
 		$this->price = $price;
 	}
 	public function applyDiscount(float $discount): void {
-		$this->price = $this->getPrice() * ((100 - $discount) / 100);
+		$this->updatePrice($this->getPrice() * ((100 - $discount) / 100));
 	}
 }
 
