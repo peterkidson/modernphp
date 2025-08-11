@@ -1,15 +1,19 @@
 <?php
 
+use App\Frontend\Controller\NotFoundController;
+use App\Frontend\Controller\PagesController;
+
 require __DIR__ . '/inc/all.inc.php';
 
 $page = @($_GET['page'] ?? 'index');
 
 switch ($page) {
 	case 'index':
-		echo 'Index page';
+		$pagesController = new PagesController();
+		$pagesController->showpage('index');
 		break;
 	default:
-		$nfc = new \App\Frontend\Controller\NotFoundController();
-		$nfc->error404();
+		$notFoundController = new NotFoundController();
+		$notFoundController->error404();
 		break;
 }
