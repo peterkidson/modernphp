@@ -2,8 +2,7 @@
 
 namespace App\Frontend\Controller;
 
-abstract class AbstractController
-{
+abstract class AbstractCtl {
 	protected function render(string $view, array $params = []) {
 		extract($params);
 		ob_start();

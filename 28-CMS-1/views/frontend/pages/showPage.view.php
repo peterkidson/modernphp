@@ -1,1 +1,3 @@
-<h1>showPage.view.php</h1>
+<h1><?= e($page->title) ?></h1>
+<p><?= e($page->content) ?></p>
+<?php var_dump($page); ?>
