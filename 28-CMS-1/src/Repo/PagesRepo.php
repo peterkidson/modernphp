@@ -14,6 +14,6 @@ class PagesRepo {
 		$stmt->execute();
 		$stmt->setFetchMode(PDO::FETCH_CLASS, PageModel::class);
 		$page = $stmt->fetch();
-		return $page;
+		return !empty($page) ? $page : null;
 	}
 }
