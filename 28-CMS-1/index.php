@@ -10,6 +10,8 @@ require __DIR__ . '/inc/all.inc.php';
 
 $route = @(string) ($_GET['route'] ?? 'pages');
 
+$pagesRepo = new PagesRepo($pdo);
+
 if ($route === 'pages') {
 	$page = @(string)($_GET['page'] ?? 'index');
 
@@ -18,6 +20,6 @@ if ($route === 'pages') {
 	$pagesCtl->showpage($page);
 }
 else {
-	$notFoundCtl = new NotFoundCtlr();
-	$notFoundCtl->error404();
+	$notFoundCtlr = new NotFoundCtlr($pagesRepo);
+	$notFoundCtlr->error404();
 }

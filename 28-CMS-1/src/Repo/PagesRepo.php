@@ -7,7 +7,11 @@ use PDO;
 
 class PagesRepo {
 	public function __construct(private PDO $pdo) {}
-
+	public function fetchAll() {
+		$stmt = $this->pdo->prepare("SELECT * FROM `pages` ORDER BY `id` ASC");
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_CLASS, PageModel::class);
+	}
 	public function fetchBySlug(string $slug): ?PageModel  {
 		$stmt = $this->pdo->prepare("SELECT * FROM pages WHERE slug = :slug");
 		$stmt->bindValue(':slug', $slug);
