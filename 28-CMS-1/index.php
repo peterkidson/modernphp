@@ -16,8 +16,8 @@ if ($route === 'pages') {
 	$page = @(string)($_GET['page'] ?? 'index');
 
 	$pagesRepo = new PagesRepo($pdo);
-	$pagesCtl = new PagesCtlr($pagesRepo);
-	$pagesCtl->showpage($page);
+	$pagesCtlr = new PagesCtlr($pagesRepo);
+	$pagesCtlr->showpage($page);
 }
 else {
 	$notFoundCtlr = new NotFoundCtlr($pagesRepo);
