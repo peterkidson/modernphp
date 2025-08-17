@@ -16,27 +16,20 @@ class PostsController
 
 class Container
 {
-	private array 	$instances	= [];
-	private array 	$ctorRecipes		= [];
+	private array	$instances		= [];
+	public array 	$recipes	= [];
 	public function __construct()
 	{
-		$this->ctorRecipes['postsRepository'] = function() {
-			return new PostsRepository('A', 'B');
-		};
-		$this->ctorRecipes['postsController'] = function() {
-			$postsRepository = $this->get('postsRepository');
-			return new PostsController($postsRepository);
-		};
 	}
 
 	public function get(string $component)
 	{
 		if (empty($this->instances[$component])) {
-			if (empty($this->ctorRecipes[$component])) {
+			if (empty($this->recipes[$component])) {
 				echo "Component '$component' not found";
 				die();
 			}
-			$this->instances[$component] = $this->ctorRecipes[$component]();
+			$this->instances[$component] = $this->recipes[$component]();
 		}
 		return $this->instances[$component];
 	}
@@ -44,6 +37,15 @@ class Container
 }
 
 $container = new Container();
+
+$container->recipes['postsRepository'] = function() {
+	return new PostsRepository('A', 'B');
+};
+$container->recipes['postsController'] = function() use ($container) {
+	$postsRepository = $container->get('postsRepository');
+	return new PostsController($postsRepository);
+};
+
 $postsRepository = $container->get('postsRepository');
 var_dump($postsRepository);
 $postsController = $container->get('postsController');
