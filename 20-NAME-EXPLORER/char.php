@@ -13,7 +13,7 @@ $alphabet = gen_alphabet();
 
 if (  strlen($char) === 0
 	OR !in_array($char, $alphabet)) {
-	header("location: index1.php");
+	header("location: index.php");
 	die;
 }
 

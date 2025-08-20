@@ -1,5 +1,7 @@
 <?php
 
-header("Content-type: /text/plain");
+//header("Content-type: /text/plain");
+
+echo "hello world";
 
 
