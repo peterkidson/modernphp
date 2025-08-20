@@ -2,8 +2,8 @@
 
 global $pdo;
 
-use App\Frontend\Controller\NotFoundCtlr;
-use App\Frontend\Controller\PagesCtlr;
+use App\Frontend\Ctlr\NotFoundCtlr;
+use App\Frontend\Ctlr\PagesCtlr;
 use App\Repo\PagesRepo;
 use App\Support\Container;
 

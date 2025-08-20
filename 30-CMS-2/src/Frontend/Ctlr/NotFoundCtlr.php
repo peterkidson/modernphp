@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Frontend\Controller;
+namespace App\Frontend\Ctlr;
 
 class NotFoundCtlr extends AbstractCtlr
 {
