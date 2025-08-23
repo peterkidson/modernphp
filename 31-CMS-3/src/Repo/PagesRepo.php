@@ -7,7 +7,10 @@ use PDO;
 
 class PagesRepo {
 	public function __construct(private PDO $pdo) {}
-	public function fetchAll() {
+	public function fetchForNavigation() {
+		return $this->get();
+	}
+	public function get(): array {
 		$stmt = $this->pdo->prepare("SELECT * FROM `pages` ORDER BY `id` ASC");
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_CLASS, PageModel::class);

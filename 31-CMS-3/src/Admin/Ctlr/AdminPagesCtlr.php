@@ -9,6 +9,7 @@ class AdminPagesCtlr extends AbstractAdminCtlr
 	public function __construct(protected PagesRepo $pagesRepo) { }
 
 	public function index() {
-		$this->render('pages/index',[]);
+		$pages = $this->pagesRepo->get();
+		$this->render('pages/index',['pages' => $pages]);
 	}
 }
