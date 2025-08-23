@@ -2,9 +2,10 @@
 
 namespace App\Frontend\Ctlr;
 
+use App\ACommon\BaseAbstractCtlr;
 use App\Repo\PagesRepo;
 
-abstract class AbstractCtlr {
+abstract class AbstractCtlr extends BaseAbstractCtlr {
 	public function __construct(protected PagesRepo $pagesRepo) {}
 
 	protected function render(string $view, array $params = []) {
@@ -14,9 +15,5 @@ abstract class AbstractCtlr {
 		$contents = ob_get_clean();
 		$allPages = $this->pagesRepo->fetchAll();
 		require __DIR__ . "/../../../views/frontend/layouts/main.view.php";
-	}
-	protected function error404() {
-		http_response_code(404);
-		$this->render('abstract/error404',[]);
 	}
 }

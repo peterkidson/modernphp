@@ -2,6 +2,7 @@
 
 global $pdo;
 
+use App\Admin\Ctlr\PagesAdminCtlr;
 use App\Frontend\Ctlr\NotFoundCtlr;
 use App\Frontend\Ctlr\PagesCtlr;
 use App\Repo\PagesRepo;
@@ -26,6 +27,9 @@ $container->bind('notFoundCtlr', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
 	return new NotFoundCtlr($pagesRepo);
 });
+$container->bind('adminPagesCtlr', function () use ($container) {
+	return new PagesAdminCtlr();
+});
 
 $pdo = $container->get('pdo');
 
@@ -38,6 +42,10 @@ if ($route === 'pages') {
 
 	$pagesCtlr = $container->get('pagesCtlr');
 	$pagesCtlr->showpage($page);
+}
+else if ($route === 'admin/pages') {
+	$adminPagesCtlr = $container->get('adminPagesCtlr');
+	$adminPagesCtlr->index();
 }
 else {
 	$notFoundCtlr = $container->get('notFoundCtlr');
