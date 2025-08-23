@@ -4,7 +4,7 @@ namespace App\Frontend\Ctlr;
 
 use App\Repo\PagesRepo;
 
-class PagesCtlr extends AbstractCtlr {
+class FrontendPagesCtlr extends AbstractCtlr {
 	public function __construct(PagesRepo $pagesRepo) {
 		parent::__construct($pagesRepo);
 	}

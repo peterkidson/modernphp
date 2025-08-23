@@ -2,9 +2,9 @@
 
 global $pdo;
 
-use App\Admin\Ctlr\PagesAdminCtlr;
+use App\Admin\Ctlr\AdminPagesCtlr;
 use App\Frontend\Ctlr\NotFoundCtlr;
-use App\Frontend\Ctlr\PagesCtlr;
+use App\Frontend\Ctlr\FrontendPagesCtlr;
 use App\Repo\PagesRepo;
 use App\Support\Container;
 
@@ -21,14 +21,15 @@ $container->bind('pagesRepo', function () use ($container) {
 });
 $container->bind('pagesCtlr', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
-	return new PagesCtlr($pagesRepo);
+	return new FrontendPagesCtlr($pagesRepo);
 });
 $container->bind('notFoundCtlr', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
 	return new NotFoundCtlr($pagesRepo);
 });
 $container->bind('adminPagesCtlr', function () use ($container) {
-	return new PagesAdminCtlr();
+	$pagesRepo = $container->get('pagesRepo');
+	return new AdminPagesCtlr($pagesRepo);
 });
 
 $pdo = $container->get('pdo');
