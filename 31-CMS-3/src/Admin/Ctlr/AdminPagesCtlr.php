@@ -39,6 +39,9 @@ class AdminPagesCtlr extends AbstractAdminCtlr
 	}
 
 	public function delete() {
-
+		if (!empty($id = @(int) ($_POST['id'] ?? 0))) {
+			$this->pagesRepo->delete($id);
+		}
+		header('Location: index.php?route=admin/pages');
 	}
 }

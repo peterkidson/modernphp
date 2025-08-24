@@ -30,4 +30,9 @@ class PagesRepo {
 		$stmt->bindValue(':content', $content);
 		return $stmt->execute();
 	}
+	public function delete(int $id): bool {
+		$stmt = $this->pdo->prepare("DELETE FROM `pages` WHERE `id` = :id");
+		$stmt->bindValue(':id', $id);
+		return $stmt->execute();
+	}
 }
