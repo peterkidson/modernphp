@@ -5,15 +5,24 @@
 		<tr>
 			<th>ID</th>
 			<th>Title</th>
+			<th>Action</th>
 			<th>Slug</th>
+			<th>Content ...</th>
 		</tr>
 	</thead>
 	<tbody>
 	<?php foreach ($pages as $page) : ?>
 		<tr>
-			<td><?php echo $page->id; ?></td>
-			<td><?php echo $page->title; ?></td>
-			<td><?php echo $page->slug; ?></td>
+			<td><?= e($page->id) 	?></td>
+			<td><?= e($page->title) ?></td>
+			<td>
+				<form method="POST" action="index.php?<?= http_build_query(['route' => 'admin/pages/delete']); ?>" >
+					<input type="hidden" name="id" value="<?= e($page->id) ?>">
+					<button type="submit">Delete</button>
+				</form>
+			</td>
+			<td><?= e($page->slug) 	?></td>
+			<td><?= e(substr($page->content,0, 20)) ?></td>
 		</tr>
 	<?php endforeach; ?>
 	</tbody>

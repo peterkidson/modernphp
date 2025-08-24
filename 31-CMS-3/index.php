@@ -52,6 +52,11 @@ else if ($route === 'admin/pages/create') {
 	$adminPagesCtlr = $container->get('adminPagesCtlr');
 	$adminPagesCtlr->create();
 }
+else if ($route === 'admin/pages/delete') {
+//	$id = @(int)($_GET['id'] ?? 0);
+	$adminPagesCtlr = $container->get('adminPagesCtlr');
+	$adminPagesCtlr->delete();
+}
 else {
 	$notFoundCtlr = $container->get('notFoundCtlr');
 	$notFoundCtlr->error404();

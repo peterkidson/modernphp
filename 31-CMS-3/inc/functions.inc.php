@@ -5,4 +5,8 @@ function e($value) {
 }
 
 
+function ep($name) {
+	return e(!empty($_POST[$name]) ? $_POST[$name] : '');
+}
+
 

@@ -37,4 +37,8 @@ class AdminPagesCtlr extends AbstractAdminCtlr
 		}
 		$this->render('pages/create', ['errors' => $errors]);
 	}
+
+	public function delete() {
+
+	}
 }
