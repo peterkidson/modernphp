@@ -48,6 +48,10 @@ else if ($route === 'admin/pages') {
 	$adminPagesCtlr = $container->get('adminPagesCtlr');
 	$adminPagesCtlr->index();
 }
+else if ($route === 'admin/pages/create') {
+	$adminPagesCtlr = $container->get('adminPagesCtlr');
+	$adminPagesCtlr->create();
+}
 else {
 	$notFoundCtlr = $container->get('notFoundCtlr');
 	$notFoundCtlr->error404();

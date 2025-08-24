@@ -1,6 +1,6 @@
 <h3>Manage Pages</h3>
 
-<table>
+<table style="width: 100%;">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -20,3 +20,4 @@
 
 </table>
 
+<a href="index.php?route=admin/pages/create">Create Page</a>

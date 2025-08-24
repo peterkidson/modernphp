@@ -23,4 +23,11 @@ class PagesRepo {
 		$page = $stmt->fetch();
 		return !empty($page) ? $page : null;
 	}
+	public function create(string $title, string $slug, string $content): bool {
+		$stmt = $this->pdo->prepare("INSERT INTO `pages` (`title`, `slug`, `content`) VALUES (:title, :slug, :content)");
+		$stmt->bindValue(':title', $title);
+		$stmt->bindValue(':slug', $slug);
+		$stmt->bindValue(':content', $content);
+		return $stmt->execute();
+	}
 }

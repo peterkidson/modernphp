@@ -1,0 +1,15 @@
+<h3>New Page</h3>
+
+<form method="post" action="index.php?route=admin/pages/create">
+	<label for="title">Title</label>
+	<input type="text" name="title" id="title" value="<?= e($_POST['title'])?>" />
+
+	<label for="slug">Slug</label>
+	<input type="text" name="slug" id="slug" value="<?= e($_POST['slug'])?>" />
+
+	<label for="content">Content</label>
+	<textarea type="text" name="content" id="content"><?= e($_POST['content'])?></textarea>
+
+	<input type="submit" value="Create" />
+</form>
+
