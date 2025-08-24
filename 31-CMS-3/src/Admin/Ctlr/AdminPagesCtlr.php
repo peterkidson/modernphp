@@ -13,18 +13,28 @@ class AdminPagesCtlr extends AbstractAdminCtlr
 		$this->render('pages/index',['pages' => $pages]);
 	}
 	public function create() {
+		$errors = [];
 		if (!empty($_POST)) {
 			$title 	= @(string) ($_POST['title'] ?? '');
-			$slug 	= @(string) strtolower($_POST['slug'] ?? '');
+			$slug 	= @(string) ($_POST['slug'] ?? '');
 			$content = @(string) ($_POST['content'] ?? '');
+
+			$slug = strtolower($slug);
+			$slug = preg_replace('/[^a-z0-9-]/', '-', $slug);
+			$slug = trim($slug, '-');
+
 			if (empty($title) || empty($slug) || empty($content)) {
-				$this->render('pages/create', ['error' => 'Please fill in all fields']);
+				$errors[] = 'Please fill in all fields';
+			}
+			else if ($this->pagesRepo->fetchBySlug($slug) === null) {
+				$this->pagesRepo->create($title, $slug, $content);
+				header('Location: index.php?route=admin/pages');
 				return;
 			}
-			if ($this->pagesRepo->fetchBySlug($slug) === null) {
-				$this->pagesRepo->create($title, $slug, $content);
+			else {
+				$errors[] = 'Page with that slug already exists';
 			}
 		}
-		$this->render('pages/create');
+		$this->render('pages/create', ['errors' => $errors]);
 	}
 }
