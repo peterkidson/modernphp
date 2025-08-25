@@ -40,7 +40,6 @@ $pagesRepo = new PagesRepo($pdo);
 
 if ($route === 'pages') {
 	$page = @(string)($_GET['page'] ?? 'index');
-
 	$pagesCtlr = $container->get('pagesCtlr');
 	$pagesCtlr->showpage($page);
 }
@@ -51,6 +50,10 @@ else if ($route === 'admin/pages') {
 else if ($route === 'admin/pages/create') {
 	$adminPagesCtlr = $container->get('adminPagesCtlr');
 	$adminPagesCtlr->create();
+}
+else if ($route === 'admin/pages/edit') {
+	$adminPagesCtlr = $container->get('adminPagesCtlr');
+	$adminPagesCtlr->edit();
 }
 else if ($route === 'admin/pages/delete') {
 //	$id = @(int)($_GET['id'] ?? 0);

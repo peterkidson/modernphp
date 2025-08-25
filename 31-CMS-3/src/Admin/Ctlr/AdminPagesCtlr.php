@@ -44,4 +44,10 @@ class AdminPagesCtlr extends AbstractAdminCtlr
 		}
 		header('Location: index.php?route=admin/pages');
 	}
+
+	public function edit() {
+		$id = @(int) ($_GET['id'] ?? 0);
+		$page = $this->pagesRepo->fetchById($id);
+		$this->render('pages/edit', ['page' => $page]);
+	}
 }
