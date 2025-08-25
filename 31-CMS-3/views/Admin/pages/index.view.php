@@ -16,9 +16,11 @@
 			<td><?= e($page->id) 	?></td>
 			<td><?= e($page->title) ?></td>
 			<td>
-				<form method="POST" action="index.php?<?= http_build_query(['route' => 'admin/pages/delete']); ?>" >
+<!--				<a href="">View</a>-->
+				<a href="">Edit</a>
+				<form style="display: inline" method="POST" action="index.php?<?= http_build_query(['route' => 'admin/pages/delete']); ?>" >
 					<input type="hidden" name="id" value="<?= e($page->id) ?>">
-					<button type="submit">Delete</button>
+					<input type="submit" value="Delete" class="btn-link" />
 				</form>
 			</td>
 			<td><?= e($page->slug) 	?></td>
