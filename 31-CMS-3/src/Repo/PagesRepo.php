@@ -43,4 +43,11 @@ class PagesRepo {
 		$stmt->bindValue(':id', $id);
 		return $stmt->execute();
 	}
+	public function updateTitleAndContent(int $id, string $title, string $content): bool {
+		$stmt = $this->pdo->prepare("UPDATE `pages` SET `title` = :title, `content` = :content WHERE `id` = :id");
+		$stmt->bindValue(':id', 		$id);
+		$stmt->bindValue(':title', 	$title);
+		$stmt->bindValue(':content', $content);
+		return $stmt->execute();
+	}
 }

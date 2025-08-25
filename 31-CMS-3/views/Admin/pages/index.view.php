@@ -5,9 +5,9 @@
 		<tr>
 			<th>ID</th>
 			<th>Title</th>
-			<th>Action</th>
 			<th>Slug</th>
 			<th>Content ...</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -15,6 +15,8 @@
 		<tr>
 			<td><?= e($page->id) 	?></td>
 			<td><?= e($page->title) ?></td>
+			<td><?= e($page->slug) 	?></td>
+			<td><?= e(substr($page->content,0, 20)) ?></td>
 			<td>
 <!--				<a href="">View</a>-->
 				<a href="index.php?<?= http_build_query(['route' => 'admin/pages/edit', 'id' => $page->id]) ?>">Edit</a>
@@ -23,8 +25,6 @@
 					<input type="submit" value="Delete" class="btn-link" />
 				</form>
 			</td>
-			<td><?= e($page->slug) 	?></td>
-			<td><?= e(substr($page->content,0, 20)) ?></td>
 		</tr>
 	<?php endforeach; ?>
 	</tbody>

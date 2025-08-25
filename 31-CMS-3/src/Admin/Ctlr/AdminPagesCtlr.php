@@ -46,8 +46,22 @@ class AdminPagesCtlr extends AbstractAdminCtlr
 	}
 
 	public function edit() {
+		$errors = [];
 		$id = @(int) ($_GET['id'] ?? 0);
+		if (!empty($_POST)) {	// FORM SUBMITTED
+			$title 	= @(string) ($_POST['title']		?? '');
+			$content	= @(string) ($_POST['content']	?? '');
+
+			if (!empty($title) && !empty($content)) {
+				$this->pagesRepo->updateTitleAndContent($id, $title, $content);
+				header('Location: index.php?route=admin/pages');
+				return;
+			}
+			else {
+				$errors[] = 'Please fill in all fields';
+			}
+		}
 		$page = $this->pagesRepo->fetchById($id);
-		$this->render('pages/edit', ['page' => $page]);
+		$this->render('pages/edit', ['page' => $page, 'errors' => $errors]);
 	}
 }

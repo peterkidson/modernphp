@@ -10,10 +10,10 @@
 
 <form method="post" action="index.php?<?= http_build_query(['route' => 'admin/pages/edit', 'id' => $page->id]); ?>">
 	<label for="title">Title</label>
-	<input type="text" name="title" id="title" value="<?= epost('title')!=='' ? epost('title') : $page->title ?>" />
+	<input type="text" name="title" id="title" value="<?= isset($_POST['title']) ? $_POST['title']: $page->title ?>" />
 
 	<label for="content">Content</label>
-	<textarea type="text" name="content" id="content"><?= epost('content')!=='' ? epost('content') : $page->content ?></textarea>
+	<textarea type="text" name="content" id="content"><?= isset($_POST['content']) ? $_POST['content']: $page->title ?></textarea>
 
 	<input type="submit" value="Save" />
 </form>
