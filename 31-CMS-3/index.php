@@ -4,6 +4,7 @@ global $pdo;
 
 use App\Admin\Ctlr\AdminPagesCtlr;
 use App\Admin\Ctlr\LoginCtlr;
+use App\Admin\Support\AuthServ;
 use App\Frontend\Ctlr\NotFoundCtlr;
 use App\Frontend\Ctlr\FrontendPagesCtlr;
 use App\Repo\PagesRepo;
@@ -11,10 +12,15 @@ use App\Support\Container;
 
 require __DIR__ . '/inc/all.inc.php';
 
+
 $container = new Container();
 
 $container->bind('pdo', function () {
 	return require __DIR__ . '/inc/db-connect.inc.php';
+});
+$container->bind('authServ', function () use ($container){
+	$pdo = $container->get('pdo');
+	return new AuthServ($pdo);
 });
 $container->bind('pagesRepo', function () use ($container) {
 	$pdo = $container->get('pdo');
@@ -33,7 +39,8 @@ $container->bind('adminPagesCtlr', function () use ($container) {
 	return new AdminPagesCtlr($pagesRepo);
 });
 $container->bind('loginCtlr', function () use ($container) {
-	return new LoginCtlr();
+	$authServ = $container->get('authServ');
+	return new LoginCtlr($authServ);
 });
 
 $pdo = $container->get('pdo');

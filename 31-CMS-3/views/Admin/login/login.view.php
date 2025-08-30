@@ -1,3 +1,7 @@
+<?php if (isset($loginError)) : ?>
+	<p>Login failed</p>
+<?php endif; ?>
+
 <!--<form METHOD="post"	ACTION="index.php?< ? = http_build_query(['route' => 'admin/login']) ?>" >-->
 <form METHOD="post"	action="" >
 	<label for="username">Username</label>
