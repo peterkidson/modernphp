@@ -21,6 +21,10 @@ class AuthSrv
 		//	$adminhash = password_hash('admin', PASSWORD_DEFAULT);
 		// $2y$10$kUqeSY3zJ/oREMpc6robkO/Iv1XgXJow8D2jcc885Y9eOaX/peY.i
 
+		session_start();
+		$_SESSION['adminUserId'] = $user['id'];
+		session_regenerate_id();
+
 		return (password_verify($password, $user['password']));
 	}
 
