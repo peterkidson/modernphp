@@ -2,10 +2,10 @@
 
 namespace App\Frontend\Ctlr;
 
-use App\ACommon\BaseAbstractCtlr;
+use App\ACommon\BaseAbstractCtl;
 use App\Repo\PagesRepo;
 
-abstract class AbstractCtlr extends BaseAbstractCtlr {
+abstract class AbstractCtl extends BaseAbstractCtl {
 	public function __construct(protected PagesRepo $pagesRepo) {}
 
 	protected function render(string $view, array $params = []) {

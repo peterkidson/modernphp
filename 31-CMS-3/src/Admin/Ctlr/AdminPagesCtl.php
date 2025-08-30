@@ -4,7 +4,7 @@ namespace App\Admin\Ctlr;
 
 use App\Repo\PagesRepo;
 
-class AdminPagesCtlr extends AbstractAdminCtlr
+class AdminPagesCtl extends AbstractAdminCtl
 {
 	public function __construct(protected PagesRepo $pagesRepo) { }
 

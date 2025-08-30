@@ -2,7 +2,7 @@
 
 namespace App\Frontend\Ctlr;
 
-class NotFoundCtlr extends AbstractCtlr
+class NotFoundCtl extends AbstractCtl
 {
 	public function error404() {
 		return parent::error404();

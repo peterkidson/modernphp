@@ -2,11 +2,11 @@
 
 global $pdo;
 
-use App\Admin\Ctlr\AdminPagesCtlr;
-use App\Admin\Ctlr\LoginCtlr;
-use App\Admin\Support\AuthServ;
-use App\Frontend\Ctlr\NotFoundCtlr;
-use App\Frontend\Ctlr\FrontendPagesCtlr;
+use App\Admin\Ctlr\AdminPagesCtl;
+use App\Admin\Ctlr\LoginCtl;
+use App\Admin\Support\AuthSrv;
+use App\Frontend\Ctlr\NotFoundCtl;
+use App\Frontend\Ctlr\FrontendPagesCtl;
 use App\Repo\PagesRepo;
 use App\Support\Container;
 
@@ -20,7 +20,7 @@ $container->bind('pdo', function () {
 });
 $container->bind('authServ', function () use ($container){
 	$pdo = $container->get('pdo');
-	return new AuthServ($pdo);
+	return new AuthSrv($pdo);
 });
 $container->bind('pagesRepo', function () use ($container) {
 	$pdo = $container->get('pdo');
@@ -28,19 +28,19 @@ $container->bind('pagesRepo', function () use ($container) {
 });
 $container->bind('pagesCtlr', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
-	return new FrontendPagesCtlr($pagesRepo);
+	return new FrontendPagesCtl($pagesRepo);
 });
 $container->bind('notFoundCtlr', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
-	return new NotFoundCtlr($pagesRepo);
+	return new NotFoundCtl($pagesRepo);
 });
 $container->bind('adminPagesCtlr', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
-	return new AdminPagesCtlr($pagesRepo);
+	return new AdminPagesCtl($pagesRepo);
 });
 $container->bind('loginCtlr', function () use ($container) {
 	$authServ = $container->get('authServ');
-	return new LoginCtlr($authServ);
+	return new LoginCtl($authServ);
 });
 
 $pdo = $container->get('pdo');

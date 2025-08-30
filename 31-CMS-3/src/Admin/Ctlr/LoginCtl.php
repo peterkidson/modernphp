@@ -2,11 +2,11 @@
 
 namespace App\Admin\Ctlr;
 
-use App\Admin\Support\AuthServ;
+use App\Admin\Support\AuthSrv;
 
-class LoginCtlr extends AbstractAdminCtlr
+class LoginCtl extends AbstractAdminCtl
 {
-	public function __construct(private AuthServ $authServ) {}
+	public function __construct(private AuthSrv $authServ) {}
 
 	public function login() {
 		$error = true;

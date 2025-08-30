@@ -4,7 +4,7 @@ namespace App\Admin\Support;
 
 use PDO;
 
-class AuthServ
+class AuthSrv
 {
 	public function __construct(private PDO $pdo) {}
 
