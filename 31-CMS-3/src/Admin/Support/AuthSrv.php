@@ -21,11 +21,31 @@ class AuthSrv
 		//	$adminhash = password_hash('admin', PASSWORD_DEFAULT);
 		// $2y$10$kUqeSY3zJ/oREMpc6robkO/Iv1XgXJow8D2jcc885Y9eOaX/peY.i
 
+		if (!password_verify($password, $user['password'])) {
+			return false;
+		}
+
 		session_start();
 		$_SESSION['adminUserId'] = $user['id'];
 		session_regenerate_id();
 
-		return (password_verify($password, $user['password']));
+		return true;
 	}
+
+	public function isLoggedIn() : bool {
+		session_start();
+		return !empty($_SESSION['adminUserId']);
+	}
+	public function logout() {
+		session_destroy();
+	}
+	public function ensureLoggedIn() : void {
+		$isLoggedIn = $this->isLoggedIn();
+		if (empty($isLoggedIn)) {
+			header('Location: index.php?' . http_build_query(['route' => 'admin/login']));
+			die();
+		}
+	}
+
 
 }

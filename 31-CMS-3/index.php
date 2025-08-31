@@ -18,7 +18,7 @@ $container = new Container();
 $container->bind('pdo', function () {
 	return require __DIR__ . '/inc/db-connect.inc.php';
 });
-$container->bind('authServ', function () use ($container){
+$container->bind('authSrv', function () use ($container){
 	$pdo = $container->get('pdo');
 	return new AuthSrv($pdo);
 });
@@ -26,21 +26,21 @@ $container->bind('pagesRepo', function () use ($container) {
 	$pdo = $container->get('pdo');
 	return new PagesRepo($pdo);
 });
-$container->bind('pagesCtlr', function () use ($container) {
+$container->bind('pagesCtl', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
 	return new FrontendPagesCtl($pagesRepo);
 });
-$container->bind('notFoundCtlr', function () use ($container) {
+$container->bind('notFoundCtl', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
 	return new NotFoundCtl($pagesRepo);
 });
-$container->bind('adminPagesCtlr', function () use ($container) {
+$container->bind('adminPagesCtl', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
 	return new AdminPagesCtl($pagesRepo);
 });
-$container->bind('loginCtlr', function () use ($container) {
-	$authServ = $container->get('authServ');
-	return new LoginCtl($authServ);
+$container->bind('loginCtl', function () use ($container) {
+	$authSrv = $container->get('authSrv');
+	return new LoginCtl($authSrv);
 });
 
 $pdo = $container->get('pdo');
@@ -51,31 +51,38 @@ $pagesRepo = new PagesRepo($pdo);
 
 if ($route === 'pages') {
 	$page = @(string)($_GET['page'] ?? 'index');
-	$pagesCtlr = $container->get('pagesCtlr');
-	$pagesCtlr->showpage($page);
+	$pagesCtl = $container->get('pagesCtl');
+	$pagesCtl->showpage($page);
 }
 else if ($route === 'admin/login') {
-	$loginCtlr = $container->get('loginCtlr');
-	$loginCtlr->login();
+	$loginCtl = $container->get('loginCtl');
+	$loginCtl->login();
 }
 else if ($route === 'admin/pages') {
-	$adminPagesCtlr = $container->get('adminPagesCtlr');
-	$adminPagesCtlr->index();
+	$authgSrv = $container->get('authSrv');
+	$authgSrv->ensureLoggedIn();
+	$adminPagesCtl = $container->get('adminPagesCtl');
+	$adminPagesCtl->index();
 }
 else if ($route === 'admin/pages/create') {
-	$adminPagesCtlr = $container->get('adminPagesCtlr');
-	$adminPagesCtlr->create();
+	$authgSrv = $container->get('authSrv');
+	$authgSrv->ensureLoggedIn();
+	$adminPagesCtl = $container->get('adminPagesCtl');
+	$adminPagesCtl->create();
 }
 else if ($route === 'admin/pages/edit') {
-	$adminPagesCtlr = $container->get('adminPagesCtlr');
-	$adminPagesCtlr->edit();
+	$authgSrv = $container->get('authSrv');
+	$authgSrv->ensureLoggedIn();
+	$adminPagesCtl = $container->get('adminPagesCtl');
+	$adminPagesCtl->edit();
 }
 else if ($route === 'admin/pages/delete') {
-//	$id = @(int)($_GET['id'] ?? 0);
-	$adminPagesCtlr = $container->get('adminPagesCtlr');
-	$adminPagesCtlr->delete();
+	$authgSrv = $container->get('authSrv');
+	$authgSrv->ensureLoggedIn();
+	$adminPagesCtl = $container->get('adminPagesCtl');
+	$adminPagesCtl->delete();
 }
 else {
-	$notFoundCtlr = $container->get('notFoundCtlr');
-	$notFoundCtlr->error404();
+	$notFoundCtl = $container->get('notFoundCtl');
+	$notFoundCtl->error404();
 }
