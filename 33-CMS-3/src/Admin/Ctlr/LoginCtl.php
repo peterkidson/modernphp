@@ -20,7 +20,7 @@ class LoginCtl extends AbstractAdminCtl
 			if (!empty($username) && !empty($password)) {
 				if ($this->authSrv->handleLogin($username, $password)) {
 					$error = false;
-					header('Location: index.php?route=admin/pages');
+					header('Location: index.php?' . http_build_query(['route' => 'admin/pages']));
 					return;
 				}
 			}

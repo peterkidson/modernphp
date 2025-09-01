@@ -10,7 +10,9 @@ use App\Frontend\Ctlr\FrontendPagesCtl;
 use App\Repo\PagesRepo;
 use App\Support\Container;
 
+
 require __DIR__ . '/inc/all.inc.php';
+
 
 
 $container = new Container();

@@ -8,6 +8,14 @@ class AuthSrv
 {
 	public function __construct(private PDO $pdo) {}
 
+	private function ensureSession(): void {
+		if (session_id() === '') {
+			session_start();
+//			$x = session_id();
+//			echo $x;
+		}
+	}
+
 	public function handleLogin(string $username, string $password) : bool {
 		if (empty($username) || empty($password)) return false;
 		$stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE username = :username");
@@ -25,7 +33,7 @@ class AuthSrv
 			return false;
 		}
 
-		session_start();
+		$this->ensureSession();
 		$_SESSION['adminUserId'] = $user['id'];
 		session_regenerate_id();
 
@@ -33,7 +41,7 @@ class AuthSrv
 	}
 
 	public function isLoggedIn() : bool {
-		session_start();
+		$this->ensureSession();
 		return !empty($_SESSION['adminUserId']);
 	}
 	public function logout() {
