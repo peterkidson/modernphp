@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Frontend\Ctlr;
+namespace App\Frontend\Ctl;
 
 use App\Repo\PagesRepo;
 
-class FrontendPagesCtl extends AbstractCtl {
+class FrontendPagesCtl extends AbstractFrontendCtl {
 	public function __construct(PagesRepo $pagesRepo) {
 		parent::__construct($pagesRepo);
 	}

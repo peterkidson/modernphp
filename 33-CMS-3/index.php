@@ -2,11 +2,11 @@
 
 global $pdo;
 
-use App\Admin\Ctlr\AdminPagesCtl;
-use App\Admin\Ctlr\LoginCtl;
+use App\Admin\Ctl\AdminPagesCtl;
+use App\Admin\Ctl\LoginCtl;
 use App\Admin\Support\AuthSrv;
-use App\Frontend\Ctlr\NotFoundCtl;
-use App\Frontend\Ctlr\FrontendPagesCtl;
+use App\Frontend\Ctl\NotFoundCtl;
+use App\Frontend\Ctl\FrontendPagesCtl;
 use App\Repo\PagesRepo;
 use App\Support\Container;
 
@@ -28,7 +28,7 @@ $container->bind('pagesRepo', function () use ($container) {
 	$pdo = $container->get('pdo');
 	return new PagesRepo($pdo);
 });
-$container->bind('pagesCtl', function () use ($container) {
+$container->bind('frontendPagesCtl', function () use ($container) {
 	$pagesRepo = $container->get('pagesRepo');
 	return new FrontendPagesCtl($pagesRepo);
 });
@@ -53,8 +53,8 @@ $pagesRepo = new PagesRepo($pdo);
 
 if ($route === 'pages') {
 	$page = @(string)($_GET['page'] ?? 'index');
-	$pagesCtl = $container->get('pagesCtl');
-	$pagesCtl->showpage($page);
+	$frontendPagesCtl = $container->get('frontendPagesCtl');
+	$frontendPagesCtl->showpage($page);
 }
 else if ($route === 'admin/login') {
 	$loginCtl = $container->get('loginCtl');

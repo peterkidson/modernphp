@@ -1,5 +1,5 @@
-<?php if (isset($loginError)) : ?>
-	<p>Login failed</p>
+<?php if (!empty($loginError)) : ?>
+	<p>Login failed - <?= $loginError ?></p>
 <?php endif; ?>
 
 <!--<form METHOD="post"	ACTION="index.php?< ? = http_build_query(['route' => 'admin/login']) ?>" >-->

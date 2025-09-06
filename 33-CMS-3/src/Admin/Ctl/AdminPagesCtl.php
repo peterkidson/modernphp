@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Ctlr;
+namespace App\Admin\Ctl;
 
 use App\Repo\PagesRepo;
 

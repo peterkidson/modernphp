@@ -2,10 +2,9 @@
 
 namespace App\ACommon;
 
-use App\Repo\PagesRepo;
 
 abstract class BaseAbstractCtl {
-	public function __construct(protected PagesRepo $pagesRepo) {}
+	public function __construct(/*protected PagesRepo $pagesRepo*/) {}
 
 	abstract protected function render(string $view, array $params = []);
 

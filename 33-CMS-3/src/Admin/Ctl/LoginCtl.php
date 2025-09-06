@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Ctlr;
+namespace App\Admin\Ctl;
 
 use App\Admin\Support\AuthSrv;
 
@@ -13,18 +13,25 @@ class LoginCtl extends AbstractAdminCtl
 			header('Location: index.php?' . http_build_query(['route' => 'admin/pages']));
 			return;
 		}
-		$error = true;
+		$loginError = '';
 		if (!empty($_POST)) {
 			$username = @(string) ($_POST['username']);
 			$password = @(string) ($_POST['password']);
 			if (!empty($username) && !empty($password)) {
 				if ($this->authSrv->handleLogin($username, $password)) {
-					$error = false;
 					header('Location: index.php?' . http_build_query(['route' => 'admin/pages']));
 					return;
 				}
+				else {
+					$loginError = 'Invalid creds';
+				}
 			}
+			else {
+				$loginError = 'Need both fields';
+			}
+
 		}
-		$this->render('login/login', ['loginError' => $error]);
+
+		$this->render('login/login', ['loginError' => $loginError]);
 	}
 }
