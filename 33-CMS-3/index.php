@@ -37,8 +37,9 @@ $container->bind('notFoundCtl', function () use ($container) {
 	return new NotFoundCtl($pagesRepo);
 });
 $container->bind('adminPagesCtl', function () use ($container) {
+	$authSrv = $container->get('authSrv');
 	$pagesRepo = $container->get('pagesRepo');
-	return new AdminPagesCtl($pagesRepo);
+	return new AdminPagesCtl($authSrv, $pagesRepo);
 });
 $container->bind('loginCtl', function () use ($container) {
 	$authSrv = $container->get('authSrv');
@@ -59,6 +60,10 @@ if ($route === 'pages') {
 else if ($route === 'admin/login') {
 	$loginCtl = $container->get('loginCtl');
 	$loginCtl->login();
+}
+else if ($route === 'admin/logout') {
+	$loginCtl = $container->get('loginCtl');
+	$loginCtl->logout();
 }
 else if ($route === 'admin/pages') {
 	$authgSrv = $container->get('authSrv');

@@ -6,14 +6,14 @@ use PDO;
 
 class AuthSrv
 {
+	private const SESSION_KEY = 'adminUserId';
+
 	public function __construct(private PDO $pdo) {}
 
-	private function ensureSession(): void {
-		if (session_id() === '') {
-			session_start();
-//			$x = session_id();
-//			echo $x;
-		}
+	public function logout(): void {
+		$this->ensureSession();
+		unset($_SESSION[self::SESSION_KEY]);
+		session_regenerate_id();
 	}
 
 	public function handleLogin(string $username, string $password) : bool {
@@ -34,19 +34,23 @@ class AuthSrv
 		}
 
 		$this->ensureSession();
-		$_SESSION['adminUserId'] = $user['id'];
+		$_SESSION[self::SESSION_KEY] = $user['id'];
 		session_regenerate_id();
 
 		return true;
 	}
 
+	private function ensureSession(): void {
+		if (session_id() === '') {
+			session_start();
+		}
+	}
+
 	public function isLoggedIn() : bool {
 		$this->ensureSession();
-		return !empty($_SESSION['adminUserId']);
+		return !empty($_SESSION[self::SESSION_KEY]);
 	}
-	public function logout() {
-		session_destroy();
-	}
+
 	public function ensureLoggedIn() : void {
 		$isLoggedIn = $this->isLoggedIn();
 		if (empty($isLoggedIn)) {

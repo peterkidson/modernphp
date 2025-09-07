@@ -6,8 +6,10 @@ use App\Admin\Support\AuthSrv;
 
 class LoginCtl extends AbstractAdminCtl
 {
-	public function __construct(private AuthSrv $authSrv) {}
-
+	public function logout() {
+		$this->authSrv->logout();
+		header('Location: index.php?' . http_build_query(['route' => 'admin/login']));
+	}
 	public function login() {
 		if ($this->authSrv->isLoggedIn()) {
 			header('Location: index.php?' . http_build_query(['route' => 'admin/pages']));

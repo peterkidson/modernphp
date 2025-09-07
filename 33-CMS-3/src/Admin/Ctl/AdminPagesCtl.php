@@ -2,11 +2,14 @@
 
 namespace App\Admin\Ctl;
 
+use App\Admin\Support\AuthSrv;
 use App\Repo\PagesRepo;
 
 class AdminPagesCtl extends AbstractAdminCtl
 {
-	public function __construct(protected PagesRepo $pagesRepo) { }
+	public function __construct(AuthSrv $authSrv, protected PagesRepo $pagesRepo) {
+		parent::__construct($authSrv);
+	}
 
 	public function index() {
 		$pages = $this->pagesRepo->get();

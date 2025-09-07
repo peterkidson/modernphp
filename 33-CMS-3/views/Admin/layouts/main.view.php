@@ -15,6 +15,9 @@
         </h1>
         <p>Admin area</p>
 		 <nav>
+			 <?php if (!empty($isLoggedIn)): ?>
+			 	<a href="index.php?route=admin/logout">Log out</a> <!-- http_build_query() -->
+			 <?php endif; ?>
 		 </nav>
     </header>
 	 <nav>
