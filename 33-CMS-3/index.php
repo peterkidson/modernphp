@@ -9,11 +9,9 @@ use App\Frontend\Ctl\NotFoundCtl;
 use App\Frontend\Ctl\FrontendPagesCtl;
 use App\Repo\PagesRepo;
 use App\Support\Container;
-
+use App\Support\CsrfHelper;
 
 require __DIR__ . '/inc/all.inc.php';
-
-
 
 $container = new Container();
 
@@ -45,12 +43,19 @@ $container->bind('loginCtl', function () use ($container) {
 	$authSrv = $container->get('authSrv');
 	return new LoginCtl($authSrv);
 });
+$container->bind('csrfHelper', function () {
+	return new CsrfHelper();
+});
 
-$pdo = $container->get('pdo');
+$csrfHelper = $container->get('csrfHelper');
+$csrfHelper->handle();
+
+//$pdo = $container->get('pdo');
+//$pagesRepo = new PagesRepo($pdo);
+
+
 
 $route = @(string) ($_GET['route'] ?? 'pages');
-
-$pagesRepo = new PagesRepo($pdo);
 
 if ($route === 'pages') {
 	$page = @(string)($_GET['page'] ?? 'index');
