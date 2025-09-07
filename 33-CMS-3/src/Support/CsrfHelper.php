@@ -8,7 +8,19 @@ class CsrfHelper
 
 	public function handle() {
 		$this->ensureSession();
-		echo 'csrf handler';
+
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			if (	!empty($_POST['_csrf'])
+				&& !empty($_SESSION[self::SESSION_KEY])
+				&& $_POST['_csrf'] === $_SESSION[self::SESSION_KEY]) {
+				return;
+			}
+			http_response_code(419);
+			echo "Error: CSRF token mismatch";
+			var_dump($_POST);
+			var_dump($_SESSION);
+			die();
+		}
 	}
 	private function ensureSession() {
 		if (session_id() === '') {

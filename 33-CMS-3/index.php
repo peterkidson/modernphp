@@ -49,11 +49,11 @@ $container->bind('csrfHelper', function () {
 
 $csrfHelper = $container->get('csrfHelper');
 $csrfHelper->handle();
-
-//$pdo = $container->get('pdo');
-//$pagesRepo = new PagesRepo($pdo);
-
-
+function csrfToken() {
+	global $container;
+	$csrfHelper = $container->get('csrfHelper');
+	return $csrfHelper->generateToken();
+}
 
 $route = @(string) ($_GET['route'] ?? 'pages');
 

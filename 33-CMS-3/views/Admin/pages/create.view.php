@@ -9,6 +9,9 @@
 <?php endif; ?>
 
 <form method="post" action="index.php?route=admin/pages/create">
+
+	<input type="text" name="_csrf" value="<?= csrfToken() ?>" />
+
 	<label for="title">Title</label>
 	<input type="text" name="title" id="title" value="<?= epost('title') ?>" />
 
