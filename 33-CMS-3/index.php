@@ -49,11 +49,6 @@ $container->bind('csrfHelper', function () {
 
 $csrfHelper = $container->get('csrfHelper');
 $csrfHelper->handle();
-function csrfToken() {
-	global $container;
-	$csrfHelper = $container->get('csrfHelper');
-	return $csrfHelper->generateToken();
-}
 
 $route = @(string) ($_GET['route'] ?? 'pages');
 
