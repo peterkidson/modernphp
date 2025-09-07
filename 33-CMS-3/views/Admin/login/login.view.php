@@ -4,6 +4,8 @@
 
 <!--<form METHOD="post"	ACTION="index.php?< ? = http_build_query(['route' => 'admin/login']) ?>" >-->
 <form METHOD="post"	action="" >
+	<input type="hidden" name="_csrf" value="<?= csrfToken() ?>" />
+
 	<label for="username">Username</label>
 	<input type="text" name="username" id="username" value="<?= epost('username') ?>" />
 

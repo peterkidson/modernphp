@@ -9,6 +9,9 @@
 <?php endif; ?>
 
 <form method="post" action="index.php?<?= http_build_query(['route' => 'admin/pages/edit', 'id' => $page->id]); ?>">
+
+	<input type="hidden" name="_csrf" value="<?= csrfToken() ?>" />
+
 	<label for="title">Title</label>
 	<input type="text" name="title" id="title" value="<?= isset($_POST['title']) ? $_POST['title']: $page->title ?>" />
 
