@@ -41,12 +41,3 @@ unset($p->propx);
 foreach (['propx','junk'] as $propname) {echo @"isset($propname) : " . b(isset($p->$propname)) . "\n";}
 
 
-
-//
-//$p->propx = "jane";
-//var_dump("propx set: " . $p['propx'])."\n";
-//
-//var_dump("propx exists: " .isset($p['propx']))."\n";
-//var_dump("nonexistent exists: " .isset($p['nonexistent']))."\n";
-
-
